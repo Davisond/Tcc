@@ -22,13 +22,15 @@ const atualizarAlimento = async (id, alimento) => {
         return alimentoAtualizado;
 }
 
-
-
 //DELETE
+const deletarAlimento = async (id) => {
+    const alimentoDeletado = await connection.execute('DELETE FROM alimentos WHERE id = ?', [id]);
+    return alimentoDeletado; 
+}
 
 
 
 module.exports = {
-    getAll, criarAlimento
+    getAll, criarAlimento, atualizarAlimento, deletarAlimento
 
 };
