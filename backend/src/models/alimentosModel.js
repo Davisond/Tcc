@@ -17,7 +17,7 @@ const criarAlimento = async (alimento) => {
 //PUT
 const atualizarAlimento = async (id, alimento) => {
         const { nome, carbohidrato, proteina, gordura, caloria, porcao, quantidade} = alimento;
-        const query = 'UPDATE alimentos SET nome = ?, carbohidrato = ?, proteina = ?, caloria = ?, porcao = ?, quantidade = ? WHERE id = ?';
+        const query = 'UPDATE alimentos SET nome = ?, carbohidrato = ?, proteina = ?, gordura = ?, caloria = ?, porcao = ?, quantidade = ? WHERE id = ?';
         const alimentoAtualizado = await connection.execute(query, [ nome, carbohidrato, proteina, gordura, caloria, porcao, quantidade, id]);
         return alimentoAtualizado;
 }

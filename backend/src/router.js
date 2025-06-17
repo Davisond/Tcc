@@ -8,4 +8,4 @@ router.put('/alimentos/:id', alimentosController.atualizarAlimento);
 router.delete('/alimentos/:id', alimentosController.deletarAlimento);
 
 
-module.express = router;
+module.exports = router;
