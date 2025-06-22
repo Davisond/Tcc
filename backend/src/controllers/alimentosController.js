@@ -6,6 +6,13 @@ const getAlimentos = async (request, response) => {
     const alimentos = await alimentosModel.getAlimentos();
     return response.status(200).json(alimentos);
 }
+//GET BY ID
+const getAlimentoById = async (request, response) => {
+    const { id } = request.params;
+    const alimento = await alimentosModel.getAlimentoById(id);
+    return response.status(200).json(alimento);
+
+}
 //POST
 const criarAlimento = async (request, response) => {
     const alimentoCriado = await alimentosModel.criarAlimento(request.body);
@@ -25,7 +32,5 @@ const deletarAlimento = async (request, response) => {
 };
   
 module.exports = {
-    getAlimentos, criarAlimento, atualizarAlimento, deletarAlimento,
-    getUsuarios, criarUsuario, atualizarUsuario, deletarUsuario
-
+getAlimentos, getAlimentoById, criarAlimento, atualizarAlimento, deletarAlimento
 }

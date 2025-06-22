@@ -6,6 +6,12 @@ const getUsuarios = async (request, response) => {
     const usuarios = await alimentosModel.getusuarios();
     return response.status(200).json(usuarios);
 }
+//GET BY ID 
+const getUsuarioById = async(request, response) => {
+    const { id } = request.params;
+    const usuario = await usuariosModel.getUsuarioById(id);
+    return response.status(200).json(usuario);
+}
 //POST
 const criarUsuario = async (request, response) => {
     const usuarioCriado = await alimentosModel.criarUsuario(request.body);
@@ -24,6 +30,6 @@ const deletarUsuario = async (request, response) => {
 }
 
 module.exports = {
-    getUsuarios, criarUsuario, atualizarUsuario, deletarUsuario
+    getUsuarios, getUsuarioById, criarUsuario, atualizarUsuario, deletarUsuario
 
 }

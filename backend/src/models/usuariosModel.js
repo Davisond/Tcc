@@ -1,5 +1,15 @@
 const connection = require('./connection');
 
+//GET
+const getUsuarios = async () => {
+    const usuarios = await connection.execute('SELECT * FROM usuario');
+    return usuarios;
+};
+
+const getUsuarioById = async (id) => {
+    const [getUsuarioById] = await connection.execute('SELECT * FROM usuario WHERE id = ?', [id]);
+    return getUsuarioById;
+}
 //POST
 const criarUsuario = async (usuario) => {
     const {nome, email, senha, idade, sexo, peso, altura, objetivo} = usuario;
@@ -21,6 +31,6 @@ const deletarUsuario = async (id) => {
 }
 
 module.exports = {
-    getUsuarios, criarUsuario, atualizarUsuario, usuarioDeletado
+    getUsuarios, getUsuarioById, criarUsuario, atualizarUsuario, deletarUsuario
 
 };
