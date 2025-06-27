@@ -14,7 +14,7 @@ const getDiaById = async (idUsuario) => {
 //POST
 const criarDia = async (dia) => {
     const { data, idUsuario } = dia;
-    const query = 'INSERT INTO * dia (data, idUsuario) VALUES (?,?)';
+    const query = 'INSERT INTO dia (data, idUsuario) VALUES (?,?)';
     const diaCriado = await connection.execute(query, [data, idUsuario]);
     return diaCriado;
 }
