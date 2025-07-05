@@ -7,6 +7,8 @@ const refeicaoController = require('./controllers/refeicaoController');
 const alimentosPersonalizadosController = require ('./controllers/alimentosPersonalizadosController');
 const composicaoRefeicaoController = require('./controllers/composicaoRefeicaoController');
 const feedbackController = require('./controllers/feedbackControler');
+const resumoDiaController = require('./controllers/resumoDiaController');
+
 const router = express.Router();
 
 router.get('/alimentos', alimentosController.getAlimentos);
@@ -47,7 +49,8 @@ router.post('/feedback', feedbackController.criarFeedback);
 router.put('/feedback/:id', feedbackController.atualizarFeedback);
 router.delete('/feedback/:id', feedbackController.deletarFeedback);
 
-//composicaoRefeicao, feedback
+
+router.get('/resumo/:idDia', resumoDiaController.getResumoDia);
 
 
 

@@ -12,9 +12,9 @@ const getUsuarioById = async (id) => {
 }
 //POST
 const criarUsuario = async (usuario) => {
-    const {nome, email, senha, idade, sexo, peso, altura, objetivo} = usuario;
-    const query = 'INSERT INTO usuario(nome, email, senha, idade, sexo, peso, altura, objetivo) VALUES (?,?,?,?,?,?,?,?)';
-    const [usuarioCriado] = await connection.execute(query, [nome, email, senha, idade, sexo, peso, altura, objetivo]);
+    const {nome, email, senha, idade, sexo, peso, altura, objetivo, objetivoProteina, objetivoCarboidrato, objetivoGordura} = usuario;
+    const query = 'INSERT INTO usuario(nome, email, senha, idade, sexo, peso, altura, objetivo, objetivoProteina, objetivoCarboidrato, objetivoGordura) VALUES (?,?,?,?,?,?,?,?,?,?,?)';
+    const [usuarioCriado] = await connection.execute(query, [nome, email, senha, idade, sexo, peso, altura, objetivo,  objetivoProteina, objetivoCarboidrato, objetivoGordura]);
     return usuarioCriado;
 };   
 //PUT

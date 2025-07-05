@@ -8,17 +8,17 @@ const getAll = async () => {
 
 // POST
 const criarComposicao = async (composicao) => {
-    const { idRefeicao, idAlimento, quantidade } = composicao;
-    const query = 'INSERT INTO composicaoRefeicao(idRefeicao, idAlimento, quantidade) VALUES (?,?,?)';
-    const [novaComposicao] = await connection.execute(query, [idRefeicao, idAlimento, quantidade]);
+    const { idRefeicao, quantidade, idUsuario, idAlimento } = composicao;
+    const query = 'INSERT INTO composicaoRefeicao(idRefeicao, quantidade, idUsuario, idAlimento) VALUES (?,?,?,?)';
+    const [novaComposicao] = await connection.execute(query, [idRefeicao, quantidade, idUsuario, idAlimento]);
     return novaComposicao;
 };
 
 // PUT
 const atualizarComposicao = async (id, composicao) => {
     const { idRefeicao, idAlimento, quantidade } = composicao;
-    const query = 'UPDATE composicaoRefeicao SET idRefeicao = ?, idAlimento = ?, quantidade = ? WHERE id = ?';
-    await connection.execute(query, [idRefeicao, idAlimento, quantidade, id]);
+    const query = 'UPDATE composicaoRefeicao SET idRefeicao = ?, quantidade = ?, idAlimento = ?,  WHERE id = ?';
+    await connection.execute(query, [idRefeicao, quantidade, idAlimento, id]);
 };
 
 // DELETE

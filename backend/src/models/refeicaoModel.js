@@ -1,39 +1,39 @@
 const connection = require('./connection');
 
-const getFeedback = async () => {
-  const [rows] = await connection.execute('SELECT * FROM feedback');
+const getRefeicoes = async () => {
+  const [rows] = await connection.execute('SELECT * FROM refeicao');
   return rows;
 };
 
-const criarFeedback = async (feedback) => {
-  const { idUsuario, descricao, sensacao, idRefeicao } = feedback;
+const criarRefeicao = async (refeicao) => {
+  const { idAlimento, quantidade, data, tipo, idUsuario, idDia } = refeicao;
   const query = `
-    INSERT INTO feedback (idUsuario, descricao, sensacao, idRefeicao)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO refeicao (idAlimento, quantidade, data, tipo, idUsuario, idDia)
+    VALUES (?, ?, ?, ?, ?, ?)
   `;
-  const [result] = await connection.execute(query, [idUsuario, descricao, sensacao, idRefeicao]);
+  const [result] = await connection.execute(query, [idAlimento, quantidade, data, tipo, idUsuario, idDia]);
   return result;
 };
 
-const atualizarFeedback = async (id, feedback) => {
-  const { idUsuario, descricao, sensacao, idRefeicao } = feedback;
+const atualizarRefeicao = async (id, refeicao) => {
+  const { idAlimento, quantidade, data, tipo, idUsuario, idDia } = refeicao;
   const query = `
-    UPDATE feedback
-    SET idUsuario = ?, descricao = ?, sensacao = ?, idRefeicao = ?
+    UPDATE refeicao
+    SET idAlimento = ?, quantidade = ?, data = ?, tipo = ?, idUsuario = ?, idDia = ?
     WHERE id = ?
   `;
-  const [result] = await connection.execute(query, [idUsuario, descricao, sensacao, idRefeicao, id]);
+  const [result] = await connection.execute(query, [idAlimento, quantidade, data, tipo, idUsuario, idDia, id]);
   return result;
 };
 
-const deletarFeedback = async (id) => {
-  const [result] = await connection.execute('DELETE FROM feedback WHERE id = ?', [id]);
+const deletarRefeicao = async (id) => {
+  const [result] = await connection.execute('DELETE FROM refeicao WHERE id = ?', [id]);
   return result;
 };
 
 module.exports = {
-  getFeedback,
-  criarFeedback,
-  atualizarFeedback,
-  deletarFeedback
+  getRefeicoes,
+  criarRefeicao,
+  atualizarRefeicao,
+  deletarRefeicao
 };

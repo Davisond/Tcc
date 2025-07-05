@@ -14,7 +14,33 @@ const getUsuarioById = async(request, response) => {
 }
 //POST
 const criarUsuario = async (request, response) => {
-    const usuarioCriado = await usuariosModel.criarUsuario(request.body);
+    const { nome, email, senha, idade, sexo, peso, altura, objetivo } = request.body;
+
+    let objetivoProteina = 0
+    let objetivoCarboidrato = 0;
+    let objetivoGordura = 0;
+
+    if (objetivo === 'ganho de massa muscular') {
+      
+        objetivoProteina = peso * 2;
+        objetivoCarboidrato = peso * 6;
+        objetivoGordura = peso * 1;
+    }
+    const usuarioFinal = {
+        nome,
+        email,
+        senha,
+        idade,
+        sexo,
+        peso,
+        altura,
+        objetivo,
+        objetivoProteina,
+        objetivoCarboidrato,
+        objetivoGordura
+    }
+
+    const usuarioCriado = await usuariosModel.criarUsuario(usuarioFinal);
     return response.status(201).json(usuarioCriado);
 };
 //PUT

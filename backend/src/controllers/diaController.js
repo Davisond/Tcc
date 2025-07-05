@@ -30,6 +30,7 @@ const deletaDia = async () => {
     return response.status(202).json(diaDeletado);
 }
 
+
 module.exports = {
     getDias, getDiaById, criarDia, atualizaDia, deletaDia
 
