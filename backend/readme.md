@@ -28,3 +28,4 @@
 
 ## Model
     Funções que acessam diretamente ao banco de dados, aqui tem comandos como acessar, inserir, deletar e etc
+
