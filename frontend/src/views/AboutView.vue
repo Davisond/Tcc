@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="daily">
+    <h1>todos os alimentos consumidos no dia, com a opção de abrir outro dia</h1>
   </div>
 </template>
