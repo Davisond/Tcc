@@ -1,57 +1,71 @@
 <template>
   <div class="macro">
     <h2>Macronutrientes</h2>
-   
+
     <div class="macroLinha">
-        <label> Proteina </label>
+      <label>Proteína</label>
       <span>{{ consumido.proteina }}g / {{ objetivos.objetivoProteina }}g</span>
     </div>
     <div class="macroLinha">
-        <label> Carbohidrato </label>
+      <label>Carboidrato</label>
       <span>{{ consumido.carboidrato }}g / {{ objetivos.objetivoCarboidrato }}g</span>
     </div>
     <div class="macroLinha">
-        <label> Gordura </label>
+      <label>Gordura</label>
       <span>{{ consumido.gordura }}g / {{ objetivos.objetivoGordura }}g</span>
     </div>
+
+<alimentos-lista :idRefeicao="idRefeicao" :idUsuario="idUsuario" @adicionado="carregarResumo" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
+import alimentosLista from './alimentosLista.vue'; 
 
 export default {
-  name: 'macroDia',
+  components: {
+    alimentosLista
+  },
+
   setup() {
     const idDia = 3;
+    const idRefeicao = 3;
+    const idUsuario = 3;
 
     const objetivos = ref({});
     const consumido = ref({});
 
-    onMounted(async () => {
-      const res = await axios.get(`http://localhost:3333/resumo/${idDia}`);
-      objetivos.value = res.data.objetivos;
-      consumido.value = res.data.consumido;
-    });
+    const carregarResumo = async () => {
+      
+        const res = await axios.get(`http://localhost:3333/resumo/${idDia}`);
+        objetivos.value = res.data.objetivos;
+        consumido.value = res.data.consumido;
+     
+    };
+
+    onMounted(carregarResumo);
+
     return {
       objetivos,
-      consumido
+      consumido,
+      idRefeicao,
+      carregarResumo,
+      idUsuario,
     };
   }
-}
+};
 </script>
 
 <style scoped>
-
 .macro {
-  background-color: #f3e8fd; 
+  background-color: #f3e8fd;
   padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   font-family: 'Arial', sans-serif;
   margin: 1rem;
-  border-block:  #2c3e50;
 }
 
 h2 {
@@ -72,7 +86,7 @@ h2 {
   color: #4a148c;
   font-weight: 500;
   font-size: 1rem;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 label {

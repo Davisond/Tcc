@@ -1,8 +1,6 @@
 
 const connection = require('./connection');
 
-
-
 const getResumoDia = async (idDia) => {
 
     //Pega idUsuario vinculado ao dia
@@ -10,9 +8,6 @@ const getResumoDia = async (idDia) => {
         'SELECT idUsuario FROM dia WHERE id = ?', [idDia]
     );
 
-    if (!diaRow.length) {
-        return null;  //dia não encontrado
-    }
 
     const idUsuario = diaRow[0].idUsuario;
 
@@ -23,7 +18,7 @@ const getResumoDia = async (idDia) => {
     );
 
     if (!usuarioRow.length) {
-        return null;  //usuario não encontrado
+        return null; 
     }
 
     const objetivos = usuarioRow[0];
@@ -49,7 +44,6 @@ const getResumoDia = async (idDia) => {
         };
     }
 
-    // Para cada refeição, busca composições e soma os macros
     for (const refeicao of refeicoes) {
         const [composicoes] = await connection.execute(
             `SELECT cr.quantidade, a.proteina, a.carboidrato, a.gordura
@@ -64,7 +58,7 @@ const getResumoDia = async (idDia) => {
         //fator de proteina(25g frango) * 1.5 = 37,5g de proteína
 
         for (const item of composicoes) {
-            const fator = item.quantidade / 100; 
+            const fator = item.quantidade; 
             totalProteina += item.proteina * fator; 
             totalCarboidrato += item.carboidrato * fator; 
             totalGordura += item.gordura * fator;
@@ -74,9 +68,9 @@ const getResumoDia = async (idDia) => {
     return {
         objetivos,
         consumido: {
-            proteina: parseFloat(totalProteina.toFixed(2)),
-            carboidrato: parseFloat(totalCarboidrato.toFixed(2)),
-            gordura: parseFloat(totalGordura.toFixed(2))
+            proteina: totalProteina,
+            carboidrato: totalCarboidrato,
+            gordura: totalGordura
         }
     };
 };

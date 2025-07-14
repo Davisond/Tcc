@@ -1,12 +1,12 @@
 <template>
   
   <div class="alimentosList">
-    <div class ="alimentoCard" v-for="alimento in alimentos" :key="alimento.id">
+    <div class ="alimentoCard" v-for="alimento in alimentos" :key="alimento.id" @click ="adicionarAlimento(alimento)">
         <span class="alimentoNome">{{ alimento.nome }}</span>
          <span class="alimentoInfo">
         {{ alimento.proteina }}g prot &nbsp;•&nbsp;
         {{ alimento.carboidrato }}g carb &nbsp;•&nbsp;
-        {{ alimento.gordura }}g gordura
+        {{ alimento.gordura }}g gord
          </span>
     </div>
   </div>
@@ -19,23 +19,44 @@ import { ref, onMounted } from 'vue';
 
 export default {
     name: 'alimentosLista',
-    setup () {
+    props: {
+      idRefeicao: {
+        type: Number,
+        required: true
+      },
+      idUsuario: {
+        type: Number,
+        required: true
+      }
+    },
+    emits: ['adicionado'],
 
+    setup (props, { emit }) {
         const alimentos = ref({});
-
         onMounted(async () => {
             const res = await axios.get(`http://localhost:3333/alimentos/`);
             console.log(res.data)
             alimentos.value = res.data[0];
         });
+
+        const adicionarAlimento = async (alimento) => {
+          
+          await axios.post(`http://localhost:3333/composicao`, {
+            idRefeicao: props.idRefeicao,
+            idAlimento: alimento.id,
+            quantidade: 1,
+            idUsuario: props.idUsuario
+          });
+             emit('adicionado');
+        } 
+     
         return{
             alimentos,
+            adicionarAlimento
 
         };
     }
 }
-
-
 </script>
 
 <style scoped>
@@ -43,7 +64,6 @@ export default {
     padding: 0 1rem;
     margin-bottom: 2rem;
 }
-
 .alimentoCard {
   display: flex;
   flex-direction: column;
