@@ -15,19 +15,15 @@
       <span>{{ consumido.gordura }}g / {{ objetivos.objetivoGordura }}g</span>
     </div>
 
-<alimentos-lista :idRefeicao="idRefeicao" :idUsuario="idUsuario" @adicionado="carregarResumo" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
-import alimentosLista from './alimentosLista.vue'; 
 
 export default {
-  components: {
-    alimentosLista
-  },
+ 
 
   setup() {
     const idDia = 3;
@@ -44,7 +40,6 @@ export default {
         consumido.value = res.data.consumido;
      
     };
-
     onMounted(carregarResumo);
 
     return {

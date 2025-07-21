@@ -1,21 +1,25 @@
 <template>
   <div class="home">
-  <macroDia />
-  <alimentosLista />
-
-  </div>
+  <macroDia ref="macroDiaComponent"/>
+  </div>  
 </template>
 
 
 <script>
-import alimentosLista from '../components/alimentosLista.vue'
 import macroDia from '../components/macroDia.vue'
 
 
 export default {
+  
   components: {
-    macroDia,
-    alimentosLista
+    name: 'HomeView',
+    macroDia },
+
+  methods: {
+    atualizarMacros(){
+      this.$refs.macroDiaComponent.carregarResumo();
+    }
+
   }
 }
 

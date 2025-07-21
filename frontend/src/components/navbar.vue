@@ -1,17 +1,17 @@
 <template>
     <nav>
         <router-link to="/">Home</router-link> 
+        <button @click="$emit('toggleAlimentos')"> Bite+ </button>
         <router-link to="/about">Daily</router-link>
-        
 
-    </nav>
+    </nav>  
 </template>
-
+  
 
 <script>
-    export default {
-        name: 'navbar'
 
+    export default {
+      name: 'navbar',
     }
 </script>
 
@@ -42,5 +42,24 @@ nav a.router-link-exact-active {
   color: #2c3e50;
   font-weight: bold;
 }
+
+nav button{
+  bottom: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #a36be3;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+  nav button:hover {
+    background-color: #8b4fd1;
+    transform: translateY(-50%) scale(1.5);
+  }
+      
+
 
 </style>

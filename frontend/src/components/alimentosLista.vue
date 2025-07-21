@@ -1,6 +1,7 @@
 <template>
   
   <div class="alimentosList">
+    <h2>Alimentos</h2>
     <div class ="alimentoCard" v-for="alimento in alimentos" :key="alimento.id" @click ="adicionarAlimento(alimento)">
         <span class="alimentoNome">{{ alimento.nome }}</span>
          <span class="alimentoInfo">
@@ -18,7 +19,7 @@ import axios from 'axios';
 import { ref, onMounted } from 'vue';
 
 export default {
-    name: 'alimentosLista',
+    name: 'alimentosList',
     props: {
       idRefeicao: {
         type: Number,
@@ -64,6 +65,12 @@ export default {
     padding: 0 1rem;
     margin-bottom: 2rem;
 }
+.alimentosList h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #4a148c;
+}
 .alimentoCard {
   display: flex;
   flex-direction: column;
@@ -80,6 +87,7 @@ export default {
   font-size: 1.05rem;
   margin-bottom: 4px;
 }
+
 .alimentoInfo{
   font-family: 'Arial', sans-serif;
   color: #444;

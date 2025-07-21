@@ -34,20 +34,20 @@ router.post('/refeicao', refeicaoController.criarRefeicao);
 router.put('/refeicao/:id', refeicaoController.atualizarRefeicao);
 router.delete('/refeicao/:id', refeicaoController.deletarRefeicao);
 
-router.get('/alimentosPersonalizados', alimentosPersonalizadosController.listarAlimentosPersonalizados);
-router.post('/alimentosPersonalizados', alimentosPersonalizadosController.criarAlimentoPersonalizado);
-router.put('/alimentosPersonalizados/:id', alimentosPersonalizadosController.atualizarAlimentoPersonalizado);
-router.delete('/alimentosPersonalizados/:id', alimentosPersonalizadosController.deletarAlimentoPersonalizado);
+// router.get('/alimentosPersonalizados', alimentosPersonalizadosController.listarAlimentosPersonalizados);
+// router.post('/alimentosPersonalizados', alimentosPersonalizadosController.criarAlimentoPersonalizado);
+// router.put('/alimentosPersonalizados/:id', alimentosPersonalizadosController.atualizarAlimentoPersonalizado);
+// router.delete('/alimentosPersonalizados/:id', alimentosPersonalizadosController.deletarAlimentoPersonalizado);
 
 router.get('/composicao', composicaoRefeicaoController.getComposicoes);
 router.post('/composicao', composicaoRefeicaoController.criarComposicao);
 router.put('/composicao/:id', composicaoRefeicaoController.atualizarComposicao);
 router.delete('/composicao/:id', composicaoRefeicaoController.deletarComposicao);
 
-router.get('/feedback', feedbackController.getFeedback);
-router.post('/feedback', feedbackController.criarFeedback);
-router.put('/feedback/:id', feedbackController.atualizarFeedback);
-router.delete('/feedback/:id', feedbackController.deletarFeedback);
+// router.get('/feedback', feedbackController.getFeedback);
+// router.post('/feedback', feedbackController.criarFeedback);
+// router.put('/feedback/:id', feedbackController.atualizarFeedback);
+// router.delete('/feedback/:id', feedbackController.deletarFeedback);
 
 
 router.get('/resumo/:idDia', resumoDiaController.getResumoDia);
