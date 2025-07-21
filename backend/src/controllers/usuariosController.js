@@ -25,7 +25,18 @@ const criarUsuario = async (request, response) => {
         objetivoProteina = peso * 2;
         objetivoCarboidrato = peso * 6;
         objetivoGordura = peso * 1;
+
+    }else if (objetivo === 'perda de peso'){
+
+        //o objetivo é preservar a massa magra, então aumentamos o perc de proteina, 
+        //reduzimos o carbohidrato p forçar o corpo a usar a gordura em excesso como fonte de energ
+        //reduzimos o consumo de gordura sem zerar (as fontes precisam ser limpas(ex:abacate))
+        objetivoProteina = peso * 2.2; 
+        objetivoCarboidrato = peso * 2.5;   
+        objetivoGordura = peso * 0.8;        
     }
+
+
     const usuarioFinal = {
         nome,
         email,
