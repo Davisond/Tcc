@@ -30,6 +30,7 @@ router.put('/dias/:id', diaController.atualizaDia);
 router.delete('dias:id', diaController.deletaDia);
 
 router.get('/refeicao', refeicaoController.getRefeicoes);
+router.get('/refeicao/dia/:idDia', refeicaoController.getRefeicoesByDia);
 router.post('/refeicao', refeicaoController.criarRefeicao);
 router.put('/refeicao/:id', refeicaoController.atualizarRefeicao);
 router.delete('/refeicao/:id', refeicaoController.deletarRefeicao);
@@ -40,9 +41,12 @@ router.delete('/refeicao/:id', refeicaoController.deletarRefeicao);
 // router.delete('/alimentosPersonalizados/:id', alimentosPersonalizadosController.deletarAlimentoPersonalizado);
 
 router.get('/composicao', composicaoRefeicaoController.getComposicoes);
+router.get('/composicao/:idUsuario', composicaoRefeicaoController.getByIdUsuario);
 router.post('/composicao', composicaoRefeicaoController.criarComposicao);
-router.put('/composicao/:id', composicaoRefeicaoController.atualizarComposicao);
+router.put('/composicao/:idUsuario', composicaoRefeicaoController.atualizarComposicao);
 router.delete('/composicao/:id', composicaoRefeicaoController.deletarComposicao);
+router.delete('/composicao/:idRefeicao/:idAlimento', composicaoRefeicaoController.deleteByRefeicaoAndAlimento);
+
 
 // router.get('/feedback', feedbackController.getFeedback);
 // router.post('/feedback', feedbackController.criarFeedback);

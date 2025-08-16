@@ -6,6 +6,11 @@ const getAll = async () => {
     return composicoes;
 };
 
+const getByIdUsuario = async (idUsuario) => {
+    const [getById] = await connection.execute('SELECT * FROM composicaoRefeicao WHERE idUsuario = ?', [idUsuario]);
+    return getById;
+};
+
 // POST
 const criarComposicao = async (composicao) => {
     const { idRefeicao, quantidade, idUsuario, idAlimento } = composicao;
@@ -26,7 +31,17 @@ const deletarComposicao = async (id) => {
     await connection.execute('DELETE FROM composicaoRefeicao WHERE idRefeicao = ?, idUsuario = ?, idAlimento = ?', [idRefeicao], [idUsuario], [idAlimento]);
 };
 
+const deleteByRefeicaoAndAlimento = async (idRefeicao, idAlimento) => {
+    const [result] = await connection.execute(
+        'DELETE FROM composicaoRefeicao WHERE idRefeicao = ? AND idAlimento = ?',
+        [idRefeicao, idAlimento]
+    );
+    return result.affectedRows > 0;
+};
+
 module.exports = {
+    deleteByRefeicaoAndAlimento,
+    getByIdUsuario,
     getAll,
     criarComposicao,
     atualizarComposicao,

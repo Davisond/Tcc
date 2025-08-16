@@ -5,6 +5,15 @@ const getRefeicoes = async () => {
   return rows;
 };
 
+const getRefeicoesByDia = async (idDia) => {
+  const [refeicoes] = await connection.execute(
+    'SELECT * FROM refeicao WHERE idDia = ?',
+    [idDia]
+  );
+  return refeicoes;
+};
+
+
 const criarRefeicao = async (refeicao) => {
   const { idAlimento, quantidade, data, tipo, idUsuario, idDia } = refeicao;
   const query = `
@@ -32,6 +41,7 @@ const deletarRefeicao = async (id) => {
 };
 
 module.exports = {
+  getRefeicoesByDia,
   getRefeicoes,
   criarRefeicao,
   atualizarRefeicao,

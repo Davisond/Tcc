@@ -1,5 +1,29 @@
 <template>
   <div class="daily">
-    <h1>todos os alimentos consumidos no dia, com a opção de abrir outro dia</h1>
+
+    <!-- Aqui chamamos o componente passando o idUsuario -->
+    <alimentos-consumidos :idUsuario="idUsuario" />
   </div>
 </template>
+
+<script>
+import alimentosConsumidos from '@/components/alimentosConsumidos.vue';
+
+export default {
+  name: 'DailyView',
+  components: {
+    alimentosConsumidos
+  },
+  data() {
+    return {
+      idUsuario: 3 // aqui você pode colocar fixo, vir de login ou da rota
+    };
+  }
+};
+</script>
+
+<style scoped>
+.daily {
+  padding: 1rem;
+}
+</style>

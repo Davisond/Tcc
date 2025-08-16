@@ -8,7 +8,6 @@ const getResumoDia = async (idDia) => {
         'SELECT idUsuario FROM dia WHERE id = ?', [idDia]
     );
 
-
     const idUsuario = diaRow[0].idUsuario;
 
     //Pega objetivos da tabela usuario

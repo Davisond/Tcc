@@ -5,6 +5,12 @@ const getComposicoes = async (req, res) => {
     return res.status(200).json(composicoes);
 };
 
+const getByIdUsuario = async(request, response) => {
+    const { idUsuario } = request.params;
+    const usuario = await composicaoModel.getByIdUsuario(idUsuario)
+    return response.status(200).json(usuario);
+}
+
 const criarComposicao = async (req, res) => {
     const novaComposicao = await composicaoModel.criarComposicao(req.body);
     return res.status(201).json(novaComposicao);
@@ -22,7 +28,27 @@ const deletarComposicao = async (req, res) => {
     return res.status(204).json();
 };
 
+
+const deleteByRefeicaoAndAlimento = async (req, res) => {
+    const { idRefeicao, idAlimento } = req.params;
+
+    try {
+        const deleted = await composicaoModel.deleteByRefeicaoAndAlimento(idRefeicao, idAlimento);
+        
+        if (!deleted) {
+            return res.status(404).json({ message: 'Composição não encontrada' });
+        }
+
+        res.status(200).json({ message: 'Composição removida com sucesso' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Erro ao remover composição' });
+    }
+};
+
 module.exports = {
+    deleteByRefeicaoAndAlimento,
+    getByIdUsuario,
     getComposicoes,
     criarComposicao,
     atualizarComposicao,

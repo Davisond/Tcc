@@ -10,6 +10,11 @@ const criarRefeicao = async (req, res) => {
   const result = await refeicaoModel.criarRefeicao(novaRefeicao);
   res.status(201).json(result);
 };
+const getRefeicoesByDia = async (req, res) => {
+  const { idDia } = req.params;
+  const refeicoes = await refeicaoModel.getRefeicoesByDia(idDia);
+  res.json(refeicoes);
+};
 
 const atualizarRefeicao = async (req, res) => {
   const { id } = req.params;
@@ -24,4 +29,8 @@ const deletarRefeicao = async (req, res) => {
   res.json(result);
 };
 
-module.exports = { getRefeicoes, criarRefeicao, atualizarRefeicao, deletarRefeicao };
+module.exports = { getRefeicoes, 
+  criarRefeicao,
+   atualizarRefeicao, 
+   deletarRefeicao,
+  getRefeicoesByDia };
