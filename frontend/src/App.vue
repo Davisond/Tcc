@@ -10,24 +10,64 @@
 <script>
   import navbar from './components/navbar.vue';
   import alimentosLista from './components/alimentosLista.vue';
+  import axios from 'axios';
 
   export default{
     name: 'app',
     components: { 
-      navbar ,
+      navbar ,  
       alimentosLista
     },
     data () {
       return {
         showAlimentosList: false,
         idRefeicao: 3,
-        idUsuario: 3,
+        idUsuario: null,
         viewKey: 0
       };
     },
+    mounted() {
+      // Adicione esta lógica para buscar o id do usuário no localStorage
+      const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+        if (usuarioLogado) {
+            this.idUsuario = usuarioLogado.id;
+        }
+    },
     methods: {
-      toggleAlimentos() {
+      async toggleAlimentos() {
         this.showAlimentosList = !this.showAlimentosList;
+        if (this.showAlimentosList) {
+        await this.getOrCreateRefeicao(); 
+    } 
+      },
+      async getOrCreateRefeicao() {
+        const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+
+        //tenta buscar os dias do usuario 
+        const diasRes = await axios.get(`http://localhost:3333/dias/${usuario.id}`);
+         // flat() para tratar arrays aninhados e pegar o primeiro objeto.
+        let dia = diasRes.data.flat()[0];
+
+
+        if (!dia) {
+        console.alert('Nenhum dia encontrado para o usuário, criando novo em App.vue');
+        const novoDiaRes = await axios.post("http://localhost:3333/dias", {
+          idUsuario: usuario.id,
+          data: new Date().toISOString().slice(0, 10) // yyyy-mm-dd
+        });
+        dia = novoDiaRes.data[0]; 
+      }
+
+
+
+        const refeicaoRes = await axios.get(`http://localhost:3333/refeicao/dia/${dia.id}`)
+        const refeicao = refeicaoRes.data.flat()[0];
+
+        if (refeicao) {
+          this.idRefeicao = refeicao.id;
+          console.log("idRefeicao em app.vue: " + this.idRefeicao);
+        }
+
       },
       onAdicionado() {
         this.showAlimentosList = false;

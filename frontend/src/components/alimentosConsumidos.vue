@@ -44,12 +44,12 @@ export default {
     // Função para carregar alimentos
     const carregarAlimentos = async () => {
       try {
-        // 1️⃣ Buscar composição por usuário
+        //Buscar composição por usuário
         const composicaoRes = await axios.get(`http://localhost:3333/composicao/${props.idUsuario}`);
         
         const listaComposicao = composicaoRes.data;
 
-        // 2️⃣ Buscar dados completos de cada alimento
+        //Buscar dados completos de cada alimento
         const promessas = listaComposicao.map(async (item) => {
           const alimentoRes = await axios.get(`http://localhost:3333/alimentos/${item.idAlimento}`);
           return {

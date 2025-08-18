@@ -11,10 +11,60 @@ const getByIdUsuario = async(request, response) => {
     return response.status(200).json(usuario);
 }
 
+
+// const criarComposicao = async (req, res) => {
+//     const novaComposicao = await composicaoModel.criarComposicao(req.body);
+//     return res.status(201).json(novaComposicao);
+// };
+
 const criarComposicao = async (req, res) => {
-    const novaComposicao = await composicaoModel.criarComposicao(req.body);
-    return res.status(201).json(novaComposicao);
+  try {
+    const { idUsuario, idAlimento, quantidade } = req.body;
+     console.log("[composicao] body recebido:", req.body);
+
+    // 1. Garante o dia de hoje
+    const idDia = await composicaoModel.getOuCriaDia(idUsuario);
+    const idRefeicao = await composicaoModel.getOuCriaRefeicao(idUsuario, idDia);
+
+      console.log("[composicao] criando com:", {
+        idRefeicao,
+        idUsuario,
+        idAlimento,
+        quantidade
+        });
+    // 3. Cria composição
+    const novaComposicao = await composicaoModel.criarComposicao({
+      idRefeicao,
+      idUsuario,
+      idAlimento,
+      quantidade
+    });
+
+    res.status(201).json({
+      id: novaComposicao.insertId,
+      idRefeicao,
+      idUsuario,
+      idAlimento,
+      quantidade
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erro ao criar composição" });
+  }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const atualizarComposicao = async (req, res) => {
     const { id } = req.params;

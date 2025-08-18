@@ -13,10 +13,57 @@ const getByIdUsuario = async (idUsuario) => {
 
 // POST
 const criarComposicao = async (composicao) => {
-    const { idRefeicao, quantidade, idUsuario, idAlimento } = composicao;
-    const query = 'INSERT INTO composicaoRefeicao(idRefeicao, quantidade, idUsuario, idAlimento) VALUES (?,?,?,?)';
-    const [novaComposicao] = await connection.execute(query, [idRefeicao, quantidade, idUsuario, idAlimento]);
-    return novaComposicao;
+  const { idRefeicao, quantidade, idUsuario, idAlimento } = composicao;
+  const query = 'INSERT INTO composicaoRefeicao(idRefeicao, quantidade, idUsuario, idAlimento) VALUES (?,?,?,?)';
+  const [result] = await connection.execute(query, [idRefeicao, quantidade, idUsuario, idAlimento]);
+  return result; // retorna o objeto com insertId
+};
+
+const getOuCriaDia = async (idUsuario) => {
+     const [diaRows] = await connection.execute(
+      'SELECT id FROM dia WHERE idUsuario = ? AND data = CURDATE()',
+      [idUsuario]
+    );
+    let idDia;
+    if (diaRows.length === 0) {
+      const [result] = await connection.execute(
+        'INSERT INTO dia (idUsuario, data) VALUES (?, CURDATE())',
+        [idUsuario]
+      );
+      idDia = result.insertId;
+    } else {
+      idDia = diaRows[0].id;
+    }
+    return idDia;
+};
+
+const getTipoRefeicao = () => {
+  const hora = new Date().getHours();
+
+  if (hora >= 8 && hora < 11) return "café da manhã";
+  if (hora >= 11 && hora < 16) return "almoço";
+  if (hora >= 16 && hora < 19) return "café da tarde";
+  if (hora >= 19 && hora < 24) return "janta";
+  return "refeição noturna"; 
+};
+
+const getOuCriaRefeicao = async (idUsuario, idDia) => {
+  const [refeicaoRows] = await connection.execute(
+    'SELECT id FROM refeicao WHERE idDia = ? AND idUsuario = ? LIMIT 1',
+    [idDia, idUsuario]
+  );
+
+  if (refeicaoRows.length === 0) {
+    const tipo = getTipoRefeicao();
+    const dataHoje = new Date().toISOString().split("T")[0]; 
+
+    const [result] = await connection.execute(
+      'INSERT INTO refeicao (quantidade, data, tipo, idUsuario, idDia) VALUES (?, ?, ?, ?, ?)',
+      [0, dataHoje, tipo, idUsuario, idDia]
+    );
+    return result.insertId;
+  }
+  return refeicaoRows[0].id;
 };
 
 // PUT
@@ -40,6 +87,9 @@ const deleteByRefeicaoAndAlimento = async (idRefeicao, idAlimento) => {
 };
 
 module.exports = {
+    getOuCriaRefeicao,
+    getTipoRefeicao,
+    getOuCriaDia,
     deleteByRefeicaoAndAlimento,
     getByIdUsuario,
     getAll,

@@ -1,8 +1,8 @@
 const resumoDiaModel = require('../models/resumoDiaModel');
 
 const getResumoDia = async (req, res) => {
-  const { idDia } = req.params;
-  const resumo = await resumoDiaModel.getResumoDia(idDia);
+  const { idUsuario } = req.params;
+  const resumo = await resumoDiaModel.getResumoDia(idUsuario);
   return res.status(200).json(resumo);
 };
 

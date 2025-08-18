@@ -14,42 +14,48 @@
       <label>Gordura</label>
       <span>{{ consumido.gordura }}g / {{ objetivos.objetivoGordura }}g</span>
     </div>
-
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import axios from "axios";
+import { ref, onMounted } from "vue";
+import { getUsuarioLogado } from "../utils/auth";
 
 export default {
- 
-
   setup() {
-    const idDia = 3;
-    const idRefeicao = 3;
-    const idUsuario = 3;
-
     const objetivos = ref({});
     const consumido = ref({});
 
     const carregarResumo = async () => {
-      
-        const res = await axios.get(`http://localhost:3333/resumo/${idDia}`);
-        objetivos.value = res.data.objetivos;
-        consumido.value = res.data.consumido;
-     
+      try {
+        const usuarioLogado = getUsuarioLogado();
+        if (!usuarioLogado) {
+          console.error("Não há usuário logado");
+          alert("Não há usuário logado");
+          return;
+        }
+
+        //backend já cuida de pegar/criar o dia atual
+        const { data: resumo } = await axios.get(
+          `http://localhost:3333/resumo/${usuarioLogado.id}`
+        );
+
+        objetivos.value = resumo.objetivos;
+        consumido.value = resumo.consumido;
+        console.log("Resumo recebido:", resumo);
+      } catch (err) {
+        console.error("Erro ao carregar resumo: ", err);
+      }
     };
+
     onMounted(carregarResumo);
 
     return {
       objetivos,
       consumido,
-      idRefeicao,
-      carregarResumo,
-      idUsuario,
     };
-  }
+  },
 };
 </script>
 
@@ -59,7 +65,7 @@ export default {
   padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   margin: 1rem;
 }
 

@@ -41,15 +41,26 @@ export default {
         });
 
         const adicionarAlimento = async (alimento) => {
+          const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+            console.log("idRefeicao: " + props.idRefeicao + " idAlimento: " + alimento.id + " idUsuario: " + usuarioLogado.id)
+
           
+            if (!usuarioLogado) {
+              alert("Usuário não logado!");
+              return;
+            }
+                
           await axios.post(`http://localhost:3333/composicao`, {
-            idRefeicao: props.idRefeicao,
+            // idRefeicao: props.idRefeicao, 
             idAlimento: alimento.id,
             quantidade: 1,
-            idUsuario: props.idUsuario
+            idUsuario: usuarioLogado.id
           });
+  
              emit('adicionado');
+             
         } 
+
      
         return{
             alimentos,

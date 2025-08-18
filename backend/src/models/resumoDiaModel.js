@@ -1,79 +1,88 @@
-
 const connection = require('./connection');
 
-const getResumoDia = async (idDia) => {
+// Se sua tabela DIA tem coluna `data` use esta versão:
+async function getOrCreateDiaAtual(idUsuario) {
+  // tenta pegar o dia de HOJE
+  const [d] = await connection.execute(
+    'SELECT id FROM dia WHERE idUsuario = ? AND DATE(data) = CURDATE() LIMIT 1',
+    [idUsuario]
+  );
+  if (d.length) return d[0].id;
 
-    //Pega idUsuario vinculado ao dia
-    const [diaRow] = await connection.execute(
-        'SELECT idUsuario FROM dia WHERE id = ?', [idDia]
-    );
+  // se não existe, cria
+  const [ins] = await connection.execute(
+    'INSERT INTO dia (idUsuario, data) VALUES (?, CURDATE())',
+    [idUsuario]
+  );
+  return ins.insertId;
+}
 
-    const idUsuario = diaRow[0].idUsuario;
 
-    //Pega objetivos da tabela usuario
-    const [usuarioRow] = await connection.execute(
-        'SELECT objetivoProteina, objetivoCarboidrato, objetivoGordura FROM usuario WHERE id = ?', 
-        [idUsuario]
-    );
 
-    if (!usuarioRow.length) {
-        return null; 
-    }
 
-    const objetivos = usuarioRow[0];
 
-    //Pega refeições do dia referenciando idDia, obv
-    const [refeicoes] = await connection.execute(
-        'SELECT id FROM refeicao WHERE idDia = ?', [idDia]
-    );
 
-    let totalProteina = 0;
-    let totalCarboidrato = 0;
-    let totalGordura = 0;
+const getResumoDia = async (idUsuario) => {
+  console.log('[resumo] IN -> idUsuario =', idUsuario);
 
-    // Se não tiver refeicoes, já devolve zerado
-    if (!refeicoes.length) {
-        return {
-            objetivos,
-            consumido: {
-                proteina: 0,
-                carboidrato: 0,
-                gordura: 0
-            }
-        };
-    }
+  // garante um idDia válido para hoje/mais recente
+  const idDia = await getOrCreateDiaAtual(idUsuario);
+  console.log('[resumo] usando idDia =', idDia);
 
-    for (const refeicao of refeicoes) {
-        const [composicoes] = await connection.execute(
-            `SELECT cr.quantidade, a.proteina, a.carboidrato, a.gordura
-             FROM composicaoRefeicao cr
-             JOIN alimentos a ON cr.idAlimento = a.id
-             WHERE cr.idRefeicao = ?`,
-            [refeicao.id]
-        );
+  // objetivos do usuário
+  const [usuarioRow] = await connection.execute(
+    'SELECT objetivoProteina, objetivoCarboidrato, objetivoGordura FROM usuario WHERE id = ?',
+    [idUsuario]
+  );
+  const objetivos =
+    usuarioRow[0] || { objetivoProteina: 0, objetivoCarboidrato: 0, objetivoGordura: 0 };
+  console.log('[resumo] objetivos =', objetivos);
 
-        //as tabelas nutricionais padronizam por 100g, tipo frango 25g de proteina em 100g
-        //se comeu 150g, entao fator = 150g/100g = 1.5
-        //fator de proteina(25g frango) * 1.5 = 37,5g de proteína
+  // refeições do dia
+  const [refeicoes] = await connection.execute(
+    'SELECT id FROM refeicao WHERE idDia = ?',
+    [idDia]
+  );
+  console.log('[resumo] refeicoes encontradas =', refeicoes.length);
 
-        for (const item of composicoes) {
-            const fator = item.quantidade; 
-            totalProteina += item.proteina * fator; 
-            totalCarboidrato += item.carboidrato * fator; 
-            totalGordura += item.gordura * fator;
-        }
-    }
+  let totalProteina = 0;
+  let totalCarboidrato = 0;
+  let totalGordura = 0;
 
+  if (!refeicoes.length) {
+    console.log('[resumo] sem refeições para o dia => consumido = 0');
     return {
-        objetivos,
-        consumido: {
-            proteina: totalProteina,
-            carboidrato: totalCarboidrato,
-            gordura: totalGordura
-        }
+      objetivos,
+      consumido: { proteina: 0, carboidrato: 0, gordura: 0 },
     };
+  }
+
+  for (const refeicao of refeicoes) {
+    const [composicoes] = await connection.execute(
+      `SELECT cr.quantidade, a.proteina, a.carboidrato, a.gordura
+       FROM composicaoRefeicao cr
+       JOIN alimentos a ON cr.idAlimento = a.id
+       WHERE cr.idRefeicao = ?`,
+      [refeicao.id]
+    );
+
+    for (const item of composicoes) {
+      // Se seus macros são por 100g e quantidade está em 100g, ajuste aqui.
+      const fator = item.quantidade; // ou item.quantidade / 100 se for por grama
+      totalProteina += item.proteina * fator;
+      totalCarboidrato += item.carboidrato * fator;
+      totalGordura += item.gordura * fator;
+    }
+  }
+
+  const consumido = {
+    proteina: totalProteina,
+    carboidrato: totalCarboidrato,
+    gordura: totalGordura,
+  };
+
+  console.log('[resumo] OUT -> consumido =', consumido);
+  return { objetivos, consumido };
 };
 
-module.exports = { getResumoDia
-
- };
+module.exports = { getResumoDia };
