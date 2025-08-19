@@ -11,12 +11,6 @@ const getByIdUsuario = async(request, response) => {
     return response.status(200).json(usuario);
 }
 
-
-// const criarComposicao = async (req, res) => {
-//     const novaComposicao = await composicaoModel.criarComposicao(req.body);
-//     return res.status(201).json(novaComposicao);
-// };
-
 const criarComposicao = async (req, res) => {
   try {
     const { idUsuario, idAlimento, quantidade } = req.body;
@@ -26,6 +20,7 @@ const criarComposicao = async (req, res) => {
     const idDia = await composicaoModel.getOuCriaDia(idUsuario);
     const idRefeicao = await composicaoModel.getOuCriaRefeicao(idUsuario, idDia);
 
+    //   console.log("[refeicao] criada/recuperada:", refeicao);
       console.log("[composicao] criando com:", {
         idRefeicao,
         idUsuario,

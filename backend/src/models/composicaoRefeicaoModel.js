@@ -23,7 +23,7 @@ const getOuCriaDia = async (idUsuario) => {
      const [diaRows] = await connection.execute(
       'SELECT id FROM dia WHERE idUsuario = ? AND data = CURDATE()',
       [idUsuario]
-    );
+    );  
     let idDia;
     if (diaRows.length === 0) {
       const [result] = await connection.execute(
@@ -39,7 +39,6 @@ const getOuCriaDia = async (idUsuario) => {
 
 const getTipoRefeicao = () => {
   const hora = new Date().getHours();
-
   if (hora >= 8 && hora < 11) return "café da manhã";
   if (hora >= 11 && hora < 16) return "almoço";
   if (hora >= 16 && hora < 19) return "café da tarde";
@@ -56,6 +55,8 @@ const getOuCriaRefeicao = async (idUsuario, idDia) => {
   if (refeicaoRows.length === 0) {
     const tipo = getTipoRefeicao();
     const dataHoje = new Date().toISOString().split("T")[0]; 
+    console.log('tipo: ', tipo);
+    console.log("dataHoje: ", dataHoje)
 
     const [result] = await connection.execute(
       'INSERT INTO refeicao (quantidade, data, tipo, idUsuario, idDia) VALUES (?, ?, ?, ?, ?)',
