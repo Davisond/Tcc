@@ -20,7 +20,6 @@ const criarComposicao = async (req, res) => {
     const idDia = await composicaoModel.getOuCriaDia(idUsuario);
     const idRefeicao = await composicaoModel.getOuCriaRefeicao(idUsuario, idDia);
 
-    //   console.log("[refeicao] criada/recuperada:", refeicao);
       console.log("[composicao] criando com:", {
         idRefeicao,
         idUsuario,

@@ -32,21 +32,19 @@ import { ref, onMounted } from 'vue';
 
 export default {
   name: 'alimentosConsumidos',
-  props: {
-    idUsuario: {
-      type: Number,
-      required: true
-    }
-  },
-  setup(props) {
+  setup() {
     const alimentosConsumidos = ref([]);
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
 
     // Função para carregar alimentos
     const carregarAlimentos = async () => {
       try {
+        if (!usuarioLogado) {
+        console.warn("Nenhum usuário logado!");
+        return;
+        }
         //Buscar composição por usuário
-        const composicaoRes = await axios.get(`http://localhost:3333/composicao/${props.idUsuario}`);
-        
+        const composicaoRes = await axios.get(`http://localhost:3333/composicao/${usuarioLogado.id}`);
         const listaComposicao = composicaoRes.data;
 
         //Buscar dados completos de cada alimento
