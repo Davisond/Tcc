@@ -3,16 +3,14 @@
     <h2>Alimentos consumidos</h2>
 
     <div 
-      class="alimentoCard" 
-      v-for="(alimento, index) in alimentosConsumidos" 
-      :key="index"
-    >
+      class="alimentoCard" v-for="(alimento, index) in alimentosConsumidos" :key="index">
+      
       <div class="alimentoInfoWrapper">
-        <span class="alimentoNome">{{ alimento.nome }}</span>
+        <span class="alimentoNome">{{ alimento.nome }}<br></span>
         <span class="alimentoInfo">
-          {{ alimento.proteina }}g prot &nbsp;•&nbsp;
-          {{ alimento.carboidrato }}g carb &nbsp;•&nbsp;
-          {{ alimento.gordura }}g gord
+          proteina: {{ alimento.proteina }}g  &nbsp;
+          carboidrato: {{ alimento.carboidrato }}g  &nbsp;
+          Gordura: {{ alimento.gordura }}g 
         </span>
       </div>
 
@@ -63,11 +61,11 @@ export default {
       }
     };
 
-    // Função para remover alimento
+    // Função remover alimento
     const removerAlimento = async (idRefeicao, idAlimento) => {
       try {
         await axios.delete(`http://localhost:3333/composicao/${idRefeicao}/${idAlimento}`);
-        // Atualizar lista
+        // Atualiza lista
         await carregarAlimentos();
       } catch (error) {
         console.error('Erro ao remover alimento:', error);
@@ -85,6 +83,7 @@ export default {
 </script>
 
 <style scoped>
+
 .alimentosList {
   padding: 0 1rem;
   margin-bottom: 2rem;

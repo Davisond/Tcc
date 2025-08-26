@@ -1,5 +1,6 @@
 <template>
   <div class="screen">
+    <headerComponent />
     <navbar @toggleAlimentos="toggleAlimentos" /> 
     <alimentos-lista class="overlay" v-if="showAlimentosList" :idRefeicao="idRefeicao" :idUsuario="idUsuario" @adicionado="onAdicionado"
     /> 
@@ -8,26 +9,29 @@
 </template>
 
 <script>
+  import headerComponent from './components/header.vue';
   import navbar from './components/navbar.vue';
   import alimentosLista from './components/alimentosLista.vue';
   import axios from 'axios';
 
+
   export default{
     name: 'app',
     components: { 
-      navbar ,  
-      alimentosLista
+      navbar,  
+      headerComponent,
+      alimentosLista,
+      
     },
     data () {
       return {
         showAlimentosList: false,
-        idRefeicao: 3,
         idUsuario: null,
         viewKey: 0
       };
     },
     mounted() {
-      // Adicione esta lógica para buscar o id do usuário no localStorage
+      // lógica para buscar o id do usuário no localStorage
       const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
         if (usuarioLogado) {
             this.idUsuario = usuarioLogado.id;
@@ -57,9 +61,6 @@
         });
         dia = novoDiaRes.data[0]; 
       }
-
-
-
         const refeicaoRes = await axios.get(`http://localhost:3333/refeicao/dia/${dia.id}`)
         const refeicao = refeicaoRes.data.flat()[0];
 

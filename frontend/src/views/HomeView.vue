@@ -14,17 +14,9 @@ export default {
   components: {
     name: 'HomeView',
     macroDia },
-
-  methods: {
-    atualizarMacros(){
-      this.$refs.macroDiaComponent.carregarResumo();
-    }
-
-  }
 }
 
 </script>
-
 <style scoped>
 .home {
   padding: 16px;
