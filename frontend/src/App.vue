@@ -1,9 +1,10 @@
 <template>
   <div class="screen">
-    <headerComponent />
-    <navbar @toggleAlimentos="toggleAlimentos" /> 
-    <alimentos-lista class="overlay" v-if="showAlimentosList" :idRefeicao="idRefeicao" :idUsuario="idUsuario" @adicionado="onAdicionado"
-    /> 
+    <headerComponent/>
+    <navbar @toggleAlimentos="toggleAlimentos" />  
+
+  
+    <alimentos-lista @criarPersonalizado="abrirCriarPersonalizado" class="overlay" v-if="showAlimentosList" :idRefeicao="idRefeicao" :idUsuario="idUsuario" @adicionado="onAdicionado" /> 
   <router-view :key="viewKey" />
   </div> 
 </template>
@@ -13,11 +14,12 @@
   import navbar from './components/navbar.vue';
   import alimentosLista from './components/alimentosLista.vue';
   import axios from 'axios';
-
+  import criarAlimento from './components/criarAlimento.vue';
 
   export default{
     name: 'app',
     components: { 
+      criarAlimento,
       navbar,  
       headerComponent,
       alimentosLista,
@@ -26,6 +28,7 @@
     data () {
       return {
         showAlimentosList: false,
+        showInputCreate: false,
         idUsuario: null,
         viewKey: 0
       };
@@ -38,6 +41,14 @@
         }
     },
     methods: {
+
+      abrirCriarAlimento() {
+        this.showInputCreate = true;
+      },
+      atualizarLista(){
+        this.showInputCreate = false;
+        this.viewKey+=1; //força reload
+      },
       async toggleAlimentos() {
         this.showAlimentosList = !this.showAlimentosList;
         if (this.showAlimentosList) {

@@ -2,6 +2,8 @@
   
   <div class="alimentosList">
     <h2>Alimentos</h2>
+    <button @click="$emit('criarPersonalizado')" class="btnPersonalizado">+</button>
+
     <div class ="alimentoCard" v-for="alimento in alimentos" :key="alimento.id" @click ="adicionarAlimento(alimento)">
         <span class="alimentoNome">{{ alimento.nome }}</span>
          <span class="alimentoInfo">
@@ -72,6 +74,18 @@ export default {
 </script>
 
 <style scoped>
+.btnPersonalizado{
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-bottom: 10px;
+
+}
 .alimentosList {
     padding: 0 1rem;
     margin-bottom: 2rem;

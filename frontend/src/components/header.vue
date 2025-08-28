@@ -34,7 +34,7 @@
 <style scoped>
 
 .logoutBtn {
-  background-color: #fd7a78;
+  background-color: #a36be3;
   color: #fff;
   font-weight: bold;
   border: none;

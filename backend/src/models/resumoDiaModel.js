@@ -17,11 +17,6 @@ async function getOrCreateDiaAtual(idUsuario) {
   return ins.insertId;
 }
 
-
-
-
-
-
 const getResumoDia = async (idUsuario) => {
   console.log('[resumo] IN -> idUsuario =', idUsuario);
 

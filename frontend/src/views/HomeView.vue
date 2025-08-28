@@ -21,7 +21,7 @@ export default {
 .home {
   padding: 16px;
   padding-bottom: 100px; 
-  background-color: #f9f9f9;
+  background-color: #f9f9f9c9;
   min-height: 100vh;
 }
 </style>
