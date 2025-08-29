@@ -4,10 +4,10 @@ const connection = require('./connection');
 //POST
 const criarAlimentoPersonalizado = async (alimento) => {
     const { nome, carboidrato, proteina, gordura, caloria, porcao, idUsuario, idDia } = alimento;
-    const query = `INSERT INTO alimentopersonalizado (nome, carboidrato, proteina, gordura, caloria, porcao, idUsuario, idDia)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    const query = `INSERT INTO alimentopersonalizado (nome, carboidrato, proteina, gordura, caloria, porcao, idUsuario)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
-    const [result] = await connection.execute(query, [nome, carboidrato, proteina, gordura, caloria, porcao, idUsuario, idDia]);
+    const [result] = await connection.execute(query, [nome, carboidrato, proteina, gordura, caloria, porcao, idUsuario]);
     return result;
 };
 
@@ -27,13 +27,13 @@ const buscarPorId = async (id) => {
 
 //PUT
 const atualizarAlimentoPersonalizado = async (id, dados) => {
-    const { nome, carboidrato, proteina, gordura, caloria, porcao, idUsuario, idDia } = dados;
+    const { nome, carboidrato, proteina, gordura, caloria, porcao, idUsuario } = dados;
     const query = `
         UPDATE alimentopersonalizado
-        SET nome = ?, carboidrato = ?, proteina = ?, gordura = ?, caloria = ?, porcao = ?, idUsuario = ?, idDia = ?
+        SET nome = ?, carboidrato = ?, proteina = ?, gordura = ?, caloria = ?, porcao = ?, idUsuario = ?
         WHERE id = ?
     `;
-    const [result] = await connection.execute(query, [nome, carboidrato, proteina, gordura, caloria, porcao, idUsuario, idDia, id]);
+    const [result] = await connection.execute(query, [nome, carboidrato, proteina, gordura, caloria, porcao, idUsuario, id]);
     return result;
 };
 

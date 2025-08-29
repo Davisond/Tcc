@@ -3,8 +3,8 @@
     <headerComponent/>
     <navbar @toggleAlimentos="toggleAlimentos" />  
 
-  
-    <alimentos-lista @criarPersonalizado="abrirCriarPersonalizado" class="overlay" v-if="showAlimentosList" :idRefeicao="idRefeicao" :idUsuario="idUsuario" @adicionado="onAdicionado" /> 
+    <criar-alimento v-if="showInputCreate" @fechar="fecharCriar" @alimentoCriado="atualizarLista"/>
+    <alimentos-lista @criarPersonalizado="abrirCriarAlimento" class="overlay" v-if="showAlimentosList" :idRefeicao="idRefeicao" :idUsuario="idUsuario" @adicionado="onAdicionado" /> 
   <router-view :key="viewKey" />
   </div> 
 </template>
@@ -44,10 +44,16 @@
 
       abrirCriarAlimento() {
         this.showInputCreate = true;
+        this.showAlimentosList = false;
+      },
+      fecharCriar() {
+        this.showInputCreate = false;
+        this.showAlimentosList = true;
       },
       atualizarLista(){
         this.showInputCreate = false;
-        this.viewKey+=1; //força reload
+        this.showAlimentosList = true;
+        this.viewKey+=1; //força
       },
       async toggleAlimentos() {
         this.showAlimentosList = !this.showAlimentosList;

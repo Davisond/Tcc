@@ -47,10 +47,10 @@
                             idUsuario: usuarioLogado.id,
                         }
 
-                        await axios.post('http://localhost/3333/alimentosPersonalizados', novoAlimento);
+                        await axios.post('http://localhost:3333/alimentosPersonalizados', novoAlimento);
                         alert("Alimento Cadastrado!");
                         this.resetarFormulario();
-                        this.$defineEmits("alimentoCriado");
+                        this.$emit("alimentoCriado");
                         
 
                     } catch (error) {

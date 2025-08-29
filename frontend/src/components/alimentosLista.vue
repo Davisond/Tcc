@@ -32,8 +32,7 @@ export default {
         required: true
       }
     },
-    emits: ['adicionado'],
-
+    emits: ['adicionado', 'criarPersonalizado'],
     setup (props, { emit }) {
         const alimentos = ref({});
         onMounted(async () => {

@@ -7,6 +7,7 @@ const criarAlimentoPersonalizado = async (req, res) => {
         const novoAlimento = await alimentosPersonalizadosModel.criarAlimentoPersonalizado(req.body);
         res.status(201).json(novoAlimento);
     } catch (error) {
+        console.error("ERRO criarAlimentoPersonalizado:", error); 
         res.status(500).json({ message: 'Erro ao criar alimento personalizado', error: error.message });
     }
 };
