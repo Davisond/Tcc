@@ -61,12 +61,12 @@ export default {
 
 <style scoped>
 .macro {
-  background-color: #f3e8fd;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-  font-family: "Arial", sans-serif;
-  margin: 1rem;
+    background-color: #fdf3e8;
+    padding: 1rem;
+    border-radius: 12px;
+    margin: 1rem;
+    font-family: "Arial", sans-serif;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
 }
 
 h2 {

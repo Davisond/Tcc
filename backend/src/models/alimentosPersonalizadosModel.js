@@ -18,12 +18,6 @@ const listarAlimentosPersonalizados = async () => {
     return result;
 };
 
-//GET BY ID
-const buscarPorId = async (id) => {
-    const query = 'SELECT * FROM alimentopersonalizado WHERE id = ?';
-    const [result] = await connection.execute(query, [id]);
-    return result[0];
-};
 
 //PUT
 const atualizarAlimentoPersonalizado = async (id, dados) => {
@@ -47,7 +41,7 @@ const deletarAlimentoPersonalizado = async (id) => {
 module.exports = {
     criarAlimentoPersonalizado,
     listarAlimentosPersonalizados,
-    buscarPorId,
+    
     atualizarAlimentoPersonalizado,
     deletarAlimentoPersonalizado,
 };

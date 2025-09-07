@@ -39,6 +39,7 @@ router.delete('/refeicao/:id', refeicaoController.deletarRefeicao);
 
 router.get('/alimentosPersonalizados', alimentosPersonalizadosController.listarAlimentosPersonalizados);
 router.post('/alimentosPersonalizados', alimentosPersonalizadosController.criarAlimentoPersonalizado);
+
 // router.put('/alimentosPersonalizados/:id', alimentosPersonalizadosController.atualizarAlimentoPersonalizado);
 // router.delete('/alimentosPersonalizados/:id', alimentosPersonalizadosController.deletarAlimentoPersonalizado);
 

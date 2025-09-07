@@ -23,6 +23,7 @@ const listarAlimentosPersonalizados = async (req, res) => {
 };
 
 
+
 //PUT
 const atualizarAlimentoPersonalizado = async (req, res) => {
     try {
@@ -47,6 +48,7 @@ const deletarAlimentoPersonalizado = async (req, res) => {
 };
 
 module.exports = {
+    
     criarAlimentoPersonalizado,
     listarAlimentosPersonalizados,
     atualizarAlimentoPersonalizado,

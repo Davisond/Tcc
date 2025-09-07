@@ -62,7 +62,7 @@ const getResumoDia = async (idUsuario) => {
     );
 
     for (const item of composicoes) {
-      // Se os macros são por 100g e quantidade está em 100g, ajuste aqui.
+      // Se os macros são por 100g e quantidade está em 100g
       const fator = item.quantidade; // ou item.quantidade / 100 se for por grama
       totalProteina += item.proteina * fator;
       totalCarboidrato += item.carboidrato * fator;
@@ -77,7 +77,7 @@ const getResumoDia = async (idUsuario) => {
   };
 
   console.log('[resumo] OUT -> consumido =', consumido);
-  return { objetivos, consumido };
+  return { idDia, objetivos, consumido };
 };
 
 module.exports = { getResumoDia };
