@@ -13,22 +13,22 @@ const criarFeedback = async (request, response) => {
 };
 
 // PUT
-const atualizarFeedback = async (request, response) => {
-    const { id } = request.params;
-    const feedbackAtualizado = await feedbackModel.atualizaFeedback(id, request.body);
-    return response.status(204).json(feedbackAtualizado);
-};
+// const atualizarFeedback = async (request, response) => {
+//     const { id } = request.params;
+//     const feedbackAtualizado = await feedbackModel.atualizarFeedback(id, request.body);
+//     return response.status(204).json(feedbackAtualizado);
+// };
 
-// DELETE
-const deletarFeedback = async (request, response) => {
-    const { id } = request.params;
-    const feedbackDeletado = await feedbackModel.deletaFeedback(id);
-    return response.status(202).json(feedbackDeletado);
-};
+// // DELETE
+// const deletarFeedback = async (request, response) => {
+//     const { id } = request.params;
+//     const feedbackDeletado = await feedbackModel.deletarFeedback(id);
+//     return response.status(202).json(feedbackDeletado);
+// };
 
 module.exports = {
     getFeedback,
     criarFeedback,
-    atualizarFeedback,
-    deletarFeedback
+    // atualizarFeedback,
+    // deletarFeedback
 };

@@ -14,10 +14,7 @@
         </span>
       </div>
 
-      <button 
-        class="deleteBtn" 
-        @click="removerAlimento(alimento.idRefeicao, alimento.id)"
-      >
+      <button class="deleteBtn" @click="removerAlimento(alimento.idRefeicao, alimento.id)">
         🗑
       </button>
     </div>

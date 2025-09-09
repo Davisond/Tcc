@@ -51,8 +51,8 @@ router.delete('/composicao/:id', composicaoRefeicaoController.deletarComposicao)
 router.delete('/composicao/:idRefeicao/:idAlimento', composicaoRefeicaoController.deleteByRefeicaoAndAlimento);
 
 
-// router.get('/feedback', feedbackController.getFeedback);
-// router.post('/feedback', feedbackController.criarFeedback);
+router.get('/feedback', feedbackController.getFeedback);
+router.post('/feedback', feedbackController.criarFeedback);
 // router.put('/feedback/:id', feedbackController.atualizarFeedback);
 // router.delete('/feedback/:id', feedbackController.deletarFeedback);
 

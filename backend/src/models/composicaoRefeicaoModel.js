@@ -47,13 +47,13 @@ const getTipoRefeicao = () => {
 };
 
 const getOuCriaRefeicao = async (idUsuario, idDia) => {
+  const tipo = getTipoRefeicao();
   const [refeicaoRows] = await connection.execute(
-    'SELECT id FROM refeicao WHERE idDia = ? AND idUsuario = ? LIMIT 1',
-    [idDia, idUsuario]
+    'SELECT id FROM refeicao WHERE idDia = ? AND idUsuario = ?  AND tipo = ? LIMIT 1',
+    [idDia, idUsuario, tipo]
   );
 
   if (refeicaoRows.length === 0) {
-    const tipo = getTipoRefeicao();
     const dataHoje = new Date().toISOString().split("T")[0]; 
     console.log('tipo: ', tipo);
     console.log("dataHoje: ", dataHoje)

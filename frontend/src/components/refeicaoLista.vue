@@ -7,8 +7,20 @@
         <ul v-else>
             <li v-for="refeicao in refeicoes" :key="refeicao.id" class="refeicaoItens">
                 <strong> {{ refeicao.tipo }}</strong>
-            </li>
-        </ul>
+                <button class="adicionarFeedback" @click="abrirCardFeedback(refeicao.id)"> feel </button>
+        
+
+        <div v-if="refeicaoSelecionada === refeicao.id" class="cardFeedback">
+            <p> o quão disposto está após a refeição? </p>
+            <div class="opcoesFeedback">
+                <button v-for="num in 5" :key="num" @click="enviarFeedback(num, refeicao.id)">
+                    {{ num }}
+                </button>
+            </div>
+        </div>
+        </li>
+            </ul>
+
     </div>
 </template>
 <script>
@@ -22,6 +34,59 @@ export default {
     name: 'refeicaoLista',
     setup() {     
         const refeicoes = ref([]);
+        const refeicaoSelecionada = ref(null);
+
+
+        const abrirCardFeedback = (idRefeicao) => {
+            refeicaoSelecionada.value = refeicaoSelecionada.value === idRefeicao ? null: idRefeicao;
+        };
+
+        const enviarFeedback = async (valor, idRefeicao) => {
+            try {
+                const usuarioLogado = getUsuarioLogado();
+                    if (!usuarioLogado) {
+                        alert ("necessário efetuar login");
+                        return
+                    }
+                
+                const getDescricaoFeedback = (valor) => {
+                    switch (valor) {
+                        case 1:
+                        return "Me senti muito mal, indisposto etc";
+                        case 2:
+                        return "Me senti mal";
+                        case 3:
+                        return "Indiferente";
+                        case 4:
+                        return "Me senti bem";
+                        case 5:
+                        return "Me senti muito bem, muito disposto";
+                        default:
+                        return "Sem descrição";
+                        }
+                    };
+
+                    const feedback = {
+                        idUsuario: usuarioLogado.id,
+                        descricao: getDescricaoFeedback(valor),
+                        sensacao: valor,
+                        idRefeicao,
+                    };
+
+
+                    // testar o post lá no insomnia
+                    await axios.post("http://localhost:3333/feedback", feedback);
+                    alert ('feedback registrado.')
+
+                    //closeCard
+                    refeicaoSelecionada.value = null;
+
+
+            }catch (err) {
+                console.error("erro refeicaoLista.vue", err);
+            }
+
+        }
 
         const carregarRefeicoes = async () => {
             try {        
@@ -46,6 +111,9 @@ export default {
         
         return {
             refeicoes,
+            refeicaoSelecionada, 
+            abrirCardFeedback, 
+            enviarFeedback
         }
     },
 };
@@ -74,6 +142,39 @@ export default {
     font-weight: 500;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
     }
+
+.adicionarFeedback{
+    margin-top: 8px;
+    background: #ff99008f;
+    padding: 6px, 10px;
+    border-radius: 6px;
+    color:white;
+    cursor: pointer;
+    align-items: center;
+}
+.cardFeedback{
+    margin-top: 10px;
+    background: #fff3e0;
+    padding: 0.75rem;
+    border-radius: 8px;
+    width: 100%;
+    align-items: center;
+}
+.opcoesFeedback button {
+    margin: 2px;    
+    border: none;
+    cursor: pointer;
+    background: #ffa726;
+    color: white;
+    width: 8px;
+    align-items: center;
+
+}
+.opcoesFeedback button:hover {
+    background: #fb8c00;
+
+
+}
 
 
 </style>
