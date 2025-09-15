@@ -45,10 +45,11 @@ nav a.router-link-exact-active {
 
 nav button{
   bottom: 20px;
-  width: 60px;
-  height: 60px;
+  transform: translateY(-15%);
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  background-color: #a36be3;
+  background: linear-gradient(to top, rgb(106, 0, 138), rgb(255, 255, 255));
   color: white;
   border: none;
   font-size: 1rem;
@@ -56,10 +57,10 @@ nav button{
   cursor: pointer;
 }
   nav button:hover {
-    background-color: #8b4fd1;
-    transform: translateY(-50%) scale(1.5);
+  background: linear-gradient(to top, rgb(106, 0, 138), rgba(106, 0, 138, 0.432));
+  transform: translateY(-50%) scale(1.5);
   }
       
 
 
-</style>
+</style>  

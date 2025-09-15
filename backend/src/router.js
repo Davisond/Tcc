@@ -8,10 +8,11 @@ const alimentosPersonalizadosController = require ('./controllers/alimentosPerso
 const composicaoRefeicaoController = require('./controllers/composicaoRefeicaoController');
 const feedbackController = require('./controllers/feedbackControler');
 const resumoDiaController = require('./controllers/resumoDiaController');
+const { getFeedbackAnalise } = require('./controllers/analiseController');
 
 const router = express.Router();
 router.get('/resumo/:idUsuario', resumoDiaController.getResumoDia);
-
+router.get('/analise/feedbacks', getFeedbackAnalise);
 
 router.get('/alimentos', alimentosController.getAlimentos);
 router.get('/alimentos/:id', alimentosController.getAlimentoById);

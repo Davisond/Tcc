@@ -7,7 +7,7 @@
         <ul v-else>
             <li v-for="refeicao in refeicoes" :key="refeicao.id" class="refeicaoItens">
                 <strong> {{ refeicao.tipo }}</strong>
-                <button class="adicionarFeedback" @click="abrirCardFeedback(refeicao.id)"> feel </button>
+                <button class="adicionarFeedback" @click="abrirCardFeedback(refeicao.id)"> + </button>
         
 
         <div v-if="refeicaoSelecionada === refeicao.id" class="cardFeedback">
@@ -122,7 +122,10 @@ export default {
 
 <style scoped>
 .refeicaoLista{
-    background-color: #fdf3e8;
+    background: linear-gradient(to right, rgba(59, 56, 160, 0.3), rgba(175, 139, 210, 0.3));
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 1rem;
     border-radius: 12px;
     margin: 1rem;
@@ -130,14 +133,14 @@ export default {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
     }
 .refeicaoItens{
-    background-color: #ffe0b2;
+    background: linear-gradient(to top, rgb(106, 0, 138), rgba(164, 119, 209, 0.315));
     padding: 0.75rem;
-    border-radius: 8px;
+    border-radius: 20px;
     margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #4a2c00;
+    color:  white;
     font-size: 1rem;
     font-weight: 500;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -145,12 +148,15 @@ export default {
 
 .adicionarFeedback{
     margin-top: 8px;
-    background: #ff99008f;
+    background: #3C096C;
     padding: 6px, 10px;
-    border-radius: 6px;
+    border-radius: 20px;
     color:white;
     cursor: pointer;
     align-items: center;
+    height: 25px;
+    font-family: "Arial", sans-serif;
+    font-weight: bold;
 }
 .cardFeedback{
     margin-top: 10px;
