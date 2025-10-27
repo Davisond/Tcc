@@ -15,6 +15,7 @@
   import alimentosLista from './components/alimentosLista.vue';
   import axios from 'axios';
   import criarAlimento from './components/criarAlimento.vue';
+  
 
   export default{
     name: 'app',
@@ -110,6 +111,13 @@ position: fixed;
   width: 300px;
   }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsl(257, 18%, 85%);
 
-
+}
+  
 </style>

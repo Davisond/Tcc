@@ -19,5 +19,6 @@ export default {
 <style scoped>
 .daily {
   padding: 1rem;
+  
 }
 </style>

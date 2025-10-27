@@ -1,8 +1,8 @@
-const { gerarInsights } = require('../middlewares/analiseMiddleware');
+const { geraInsights } = require('../middlewares/analiseMiddleware');
 
 const getFeedbackAnalise = async (req, res) => {
     try{
-        const insights = await gerarInsights();
+        const insights = await geraInsights();
         res.json(insights);
 
     } catch (err) {

@@ -34,7 +34,7 @@
 <style scoped>
 
 .logoutBtn {
-  background-color: #a36be3;
+  background-color: #6a00b8;
   color: #fff;
   font-weight: bold;
   border: none;
@@ -44,21 +44,27 @@
   float: right;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-.bemVindo{
-   font-size: 1.2rem;
-  font-weight: bold;
+.bemVindo {
+  font-size: 1.4rem;
+  font-weight: 600;
   color: #2c3e50;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 .header {
     top: 0;
     width: 100%;
-    height: 70px;
+    height: 80px; 
     background-color: #fff;
     border-bottom: 1px solid #ddd;
     display: flex;
     justify-content: space-around;
     align-items: center;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 

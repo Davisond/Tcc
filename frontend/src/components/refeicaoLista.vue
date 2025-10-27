@@ -127,13 +127,13 @@ export default {
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 1rem;
-    border-radius: 12px;
+    border-radius: 25px;
     margin: 1rem;
     font-family: "Arial", sans-serif;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
     }
 .refeicaoItens{
-    background: linear-gradient(to top, rgb(106, 0, 138), rgba(164, 119, 209, 0.315));
+    background: #6b00b8;
     padding: 0.75rem;
     border-radius: 20px;
     margin-bottom: 8px;

@@ -2,6 +2,7 @@
   <div class="home">
   <macroDia ref="macroDiaComponent"/>
   <refeicao-lista />
+ 
   </div>  
 </template>
 
@@ -10,12 +11,14 @@
 import macroDia from '../components/macroDia.vue'
 import refeicaoLista from '../components/refeicaoLista.vue'
 
+
 export default {
   
   components: {
     name: 'HomeView',
     macroDia,
     refeicaoLista
+    
    },
 }
 

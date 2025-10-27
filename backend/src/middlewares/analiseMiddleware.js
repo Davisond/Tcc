@@ -1,4 +1,7 @@
 const { getAnaliseFeedback } = require('../models/analiseModel')
+const { gerarAnaliseIa } = require('../services/iaService')
+
+
 
 const geraInsights = async () => {
     const dados = await getAnaliseFeedback();
@@ -19,10 +22,17 @@ const geraInsights = async () => {
         } else {
             alerta = "sem dados suficientes";
         }
+
+        const analiseIa = await gerarAnaliseIa(item);
+
+
         insights.push({
             ...item,
-            alerta: alerta
+            alerta: alerta,
+            analiseIa
         });
     }
     return insights;
 };
+
+module.exports = { geraInsights };

@@ -17,7 +17,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="70px" height="70px">
             <defs>
               <linearGradient id="GradientColorProteina">
-                <stop offset="0%" stop-color="#DA22FF" />
+                <stop offset="0%" stop-color="#DA22FF" /> 
                 <stop offset="100%" stop-color="#9733EE" />
               </linearGradient>
             </defs>
@@ -159,7 +159,7 @@ export default {
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: 25px;
   margin: 1rem;
   font-family: "Arial", sans-serif;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
