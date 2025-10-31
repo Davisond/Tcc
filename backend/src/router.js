@@ -9,10 +9,12 @@ const composicaoRefeicaoController = require('./controllers/composicaoRefeicaoCo
 const feedbackController = require('./controllers/feedbackControler');
 const resumoDiaController = require('./controllers/resumoDiaController');
 const { getFeedbackAnalise } = require('./controllers/analiseController');
+const { resumoMes } = require('./controllers/resumoMesController');
 
 const router = express.Router();
 router.get('/resumo/:idUsuario', resumoDiaController.getResumoDia);
 router.get('/analise/feedbacks', getFeedbackAnalise);
+router.get('/resumo/mes/:idUsuario', resumoMes);
 
 router.get('/alimentos', alimentosController.getAlimentos);
 router.get('/alimentos/:id', alimentosController.getAlimentoById);
