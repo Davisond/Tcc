@@ -1,5 +1,6 @@
 const express = require('express');
 
+
 const alimentosController = require('./controllers/alimentosController');
 const usuariosController = require('./controllers/usuariosController');
 const diaController = require('./controllers/diaController');
@@ -10,8 +11,27 @@ const feedbackController = require('./controllers/feedbackControler');
 const resumoDiaController = require('./controllers/resumoDiaController');
 const { getFeedbackAnalise } = require('./controllers/analiseController');
 const { resumoMes } = require('./controllers/resumoMesController');
-
+const { geraInsights } = require('./middlewares/analiseMiddleware'); 
 const router = express.Router();
+
+
+
+
+router.get('/analise', async (req, res) => {
+  try {
+    const resultado = await geraInsights();
+    console.log('[ROTAS] retorno final da análise:', resultado);
+    res.json(resultado);
+  } catch (err) {
+    console.error('[ROTAS] erro ao gerar análise:', err);
+    res.status(500).json({ erro: 'Falha ao gerar análise' });
+  }
+});
+
+
+
+
+
 router.get('/resumo/:idUsuario', resumoDiaController.getResumoDia);
 router.get('/analise/feedbacks', getFeedbackAnalise);
 router.get('/resumo/mes/:idUsuario', resumoMes);

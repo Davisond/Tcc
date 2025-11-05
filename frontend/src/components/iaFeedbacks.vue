@@ -1,58 +1,66 @@
-<template> 
-    <div class="feedback-card">
-    <h2>Análise de Feedbacks</h2>
+<template>
+  <div class="feedback-card">
+    
+    
+    <div v-if="!carregando">
+    <h2>Análise Inteligente</h2>
 
-    <div v-if="carregando" class="loading">Carregando análises...</div>
+    <button @click="toggleInsight" class="botao-ia">
+      {{ mostrarInsight ? '' : 'Insight inteligente' }}
+      <i :class="mostrarInsight ? 'fa-solid fa-xmark' : 'fa-solid fa-robot'"></i>
+    
+    </button>
+    </div>
+    <div v-if="carregando" class="loading">Gerando insight...</div>
     <div v-else-if="erro" class="erro">{{ erro }}</div>
 
-    <div v-else class="feedback-lista">
-      <div v-for="(item, index) in feedbacks" :key="index" class="feedback-item">
-        <h3>{{ item.nome }}</h3>
-        <p><strong>Total:</strong> {{ item.qtd }}</p>
-        <p><strong>Negativos:</strong> {{ item.negativos }} | <strong>Positivos:</strong> {{ item.positivos }}</p>
-        <p class="alerta" :class="{ ruim: item.alerta.includes('negativos'), bom: item.alerta.includes('aceito') }">
-          {{ item.alerta }}
-        </p>
-        <div class="analise-ia">
-          <strong>Insight da IA:</strong>
-          <p>{{ item.analiseIa }}</p>
-        </div>
-      </div>
+    <div v-if="mostrarInsight && insightIa" class="analise-ia-geral">
+      <h3>Analise inteligente</h3>
+      <p>{{ insightIa }}</p>
     </div>
   </div>
-
-
 </template>
-  <script>
 
+<script>
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 
 export default {
   name: "FeedbackAnalise",
   setup() {
-    const feedbacks = ref([]);
-    const carregando = ref(true);
+    const mostrarInsight = ref(false);
+    const insightIa = ref("");
+    const carregando = ref(false);
     const erro = ref("");
 
-    const carregarAnalises = async () => {
+    const toggleInsight = async () => {
+      // se já estiver mostrando, fecha
+      if (mostrarInsight.value) {
+        mostrarInsight.value = false;
+        return;
+      }
+
       try {
-        const { data } = await axios.get("http://localhost:3333/analise/feedbacks"); // ajusta porta se for diferente
-        feedbacks.value = data;
+        carregando.value = true;
+        erro.value = "";
+        // chanma insight
+        const { data } = await axios.get("http://localhost:3333/analise/feedbacks");
+        insightIa.value = data.insightIa || "Sem insights, utilize o app antes :)";
+        mostrarInsight.value = true;
       } catch (err) {
-        console.error("Erro ao carregar análises:", err);
-        erro.value = "Erro ao carregar análises de feedback.";
+        erro.value = "Erro ao gerar insight";
+        console.error(err);
       } finally {
         carregando.value = false;
       }
     };
 
-    onMounted(carregarAnalises);
-
     return {
-      feedbacks,
+      mostrarInsight,
+      insightIa,
       carregando,
       erro,
+      toggleInsight,
     };
   },
 };
@@ -64,81 +72,76 @@ export default {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: black;
-  padding: 1.2rem;
+  padding: 1.5rem;
   border-radius: 12px;
-  margin: 1rem;
+  margin: 1.5rem auto;
+  max-width: 700px;
   font-family: "Arial", sans-serif;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  text-align: center;
 }
 
 h2 {
-  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.7rem;
+  color: #2d2d2d;
+}
+
+.botao-container {
   margin-bottom: 1.2rem;
-  font-size: 1.5rem;
-  color: black;
 }
 
-.feedback-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.feedback-item {
-  background-color: rgba(255, 255, 255, 0.15);
-  padding: 1rem;
-  border-radius: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.feedback-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-}
-
-.feedback-item h3 {
-  margin: 0;
-  color: black;
-  font-size: 1.2rem;
-}
-
-.alerta {
-  margin-top: 5px;
-  font-weight: bold;
-  text-transform: capitalize;
-}
-
-.alerta.ruim {
-  color: #ff6961;
-}
-
-.alerta.bom {
-  color: #90ee90;
-}
-
-.analise-ia {
-  background-color: rgba(255, 255, 255, 0.1);
-  margin-top: 0.5rem;
-  padding: 0.5rem;
+.botao-ia {
+  background-color: #4b3fad;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s ease-in-out;
+}
+
+.botao-ia:hover {
+  background-color: #5b4fd8;
+  transform: scale(1.02);
+}
+
+.botao-ia:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.analise-ia-geral {
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 1.2rem;
+  border-radius: 10px;
+  margin-top: 1rem;
   color: black;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.analise-ia-geral h3 {
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+  color: #3b2f80;
+}
+
+.sem-insight {
+  margin-top: 1.2rem;
+  font-style: italic;
+  color: #333;
 }
 
 .loading,
 .erro {
   text-align: center;
   font-weight: bold;
-  color: black;
   padding: 1rem;
 }
+
+.erro {
+  color: #d9534f;
+}
 </style>
-
-
-
-
-
-
-
-
-
