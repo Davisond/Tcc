@@ -42,7 +42,7 @@
             <defs>
               <linearGradient id="GradientColorCarboidrato">
                 <stop offset="0%" stop-color="#DA22FF" />
-                <stop offset="100%" stop-color="#9733EE" />
+                <stop offset="100%" stop-color="#4b3fad" />
               </linearGradient>
             </defs>
             <circle cx="40" cy="35" r="27.5" stroke-linecap="round" :style="{ 'stroke-dashoffset': dashOffset.carboidrato, 'stroke': 'url(#GradientColorCarboidrato)' }" />
@@ -65,7 +65,7 @@
             <defs>
               <linearGradient id="GradientColorGordura">
                 <stop offset="0%" stop-color="#DA22FF" />
-                <stop offset="100%" stop-color="#9733EE" />
+                <stop offset="100%" stop-color="#5a189a" />
               </linearGradient>
             </defs>
             <circle cx="40" cy="35" r="27.5" stroke-linecap="round" :style="{ 'stroke-dashoffset': dashOffset.gordura, 'stroke': 'url(#GradientColorGordura)' }" />
@@ -233,8 +233,6 @@ label {
   font-size: 10px;
   opacity: 0.6;
   text-align: center;
-
-
 }
 svg {
   position: absolute;

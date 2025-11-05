@@ -7,7 +7,7 @@
         <ul v-else>
             <li v-for="refeicao in refeicoes" :key="refeicao.id" class="refeicaoItens">
                 <strong> {{ refeicao.tipo }}</strong>
-                <button class="adicionarFeedback" @click="abrirCardFeedback(refeicao.id)"> + </button>
+                <button class="adicionarFeedback" @click="abrirCardFeedback(refeicao.id)"> <i class="fa-solid fa-lightbulb"></i> </button>
         
 
         <div v-if="refeicaoSelecionada === refeicao.id" class="cardFeedback">
@@ -124,18 +124,17 @@ export default {
 .refeicaoLista{
     background: linear-gradient(to right, rgba(59, 56, 160, 0.3), rgba(175, 139, 210, 0.3));
     backdrop-filter: blur(10px);
-    color: white;
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 1rem;
     border-radius: 25px;
     margin: 1rem;
-    font-family: "Arial", sans-serif;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+    transition: 0.2s ease-in-out;
     }
 .refeicaoItens{
-    background: #6b00b8;
-    padding: 0.75rem;
-    border-radius: 20px;
+    background: #4b3fad;
+    border-radius: 25px;
     margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
@@ -144,20 +143,31 @@ export default {
     font-size: 1rem;
     font-weight: 500;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+    font-family: "Arial", sans-serif;
+    padding: 0.7rem 1.5rem;
+    transition: 0.2s ease-in-out;
     }
 
 .adicionarFeedback{
-    margin-top: 8px;
-    background: #3C096C;
-    padding: 6px, 10px;
-    border-radius: 20px;
+    border:none;
+    background: #4b3fad;
+    border-radius: 30px;
     color:white;
-    cursor: pointer;
     align-items: center;
-    height: 25px;
-    font-family: "Arial", sans-serif;
+    height: 30px;
+}
+
+.adicionarFeedback:hover{
+    border:none;
+    background: #4b3fad;
+    border-radius: 30px;
+    color: #ffa726;
+    align-items: center;
+    height: 30px;
     font-weight: bold;
 }
+
+
 .cardFeedback{
     margin-top: 10px;
     background: #fff3e0;

@@ -6,7 +6,7 @@
     </router-link>
 
     <button class="fab" @click="$emit('toggleAlimentos')">
-      <i class="fa-solid fa-plus"></i>
+    +
     </button>
 
     <router-link to="/about" class="nav-item">
@@ -72,12 +72,11 @@ export default {
   border: none;
   font-size: 1.4rem;
   box-shadow: 0 3px 10px rgba(106, 0, 184, 0.3);
-  cursor: pointer;
   transition: 0.25s ease;
 }
 
 .fab:hover {
-  background: #580094;
+  background: #5a189a;
   transform: translateX(-50%) scale(1.05);
 }
 

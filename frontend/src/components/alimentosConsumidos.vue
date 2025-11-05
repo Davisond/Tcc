@@ -15,7 +15,7 @@
       </div>
 
       <button class="deleteBtn" @click="removerAlimento(alimento.idRefeicao, alimento.id)">
-        🗑
+       <i class="fa-solid fa-delete-left"></i>
       </button>
     </div>
   </div>
@@ -82,42 +82,50 @@ export default {
 <style scoped>
 
 .alimentosList {
-  padding: 0 1rem;
-  margin-bottom: 2rem;
+  background: linear-gradient(to right, rgba(59, 56, 160, 0.3), rgba(175, 139, 210, 0.3));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem;
+  border-radius: 25px;
+  margin: 1rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+  transition: 0.2s ease-in-out;
 }
 .alimentosList h2 {
   text-align: center;
+  margin-bottom: 1.5rem;
   font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #4a148c;
+  color: #2c3e50;
+  font-weight: bold;
 }
 .alimentoCard {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #e0c7fa;
+  background-color: #4b3fad;
   padding: 0.75rem 1rem;
-  border-radius: 10px;
-  margin-bottom: 12px;
+  border-radius: 25px;
+  margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 .alimentoNome {
   font-family: 'Arial', sans-serif;
   font-weight: bold;
-  color: #2c3e50; 
+  color: #fff; 
   font-size: 1.05rem;
   margin-bottom: 4px;
 }
 .alimentoInfo {
   font-family: 'Arial', sans-serif;
-  color: #444;
+  color: #fff;
 }
 .deleteBtn {
   background-color: transparent;
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
-  color: red;
+  color: #fff;
 }
 .deleteBtn:hover {
   opacity: 0.7;

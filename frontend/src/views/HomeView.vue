@@ -7,8 +7,6 @@
 
   </div>  
 </template>
-
-
 <script>
 import macroDia from '../components/macroDia.vue'
 import refeicaoLista from '../components/refeicaoLista.vue'
@@ -30,7 +28,7 @@ export default {
 .home {
   padding: 16px;
   padding-bottom: 100px; 
-  background-color: #f9f9f9c9;
   min-height: 100vh;
+  
 }
 </style>

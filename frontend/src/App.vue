@@ -115,8 +115,12 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
-  background-color: hsl(257, 18%, 85%);
+  height: 100%; 
+  background-image: url('./assets/fundoApp.png');
+  background-attachment: fixed; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
 
 }
   

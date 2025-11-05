@@ -6,8 +6,9 @@
     <h2>Análise Inteligente</h2>
 
     <button @click="toggleInsight" class="botao-ia">
-      {{ mostrarInsight ? '' : 'Insight inteligente' }}
-      <i :class="mostrarInsight ? 'fa-solid fa-xmark' : 'fa-solid fa-robot'"></i>
+      {{ mostrarInsight ? '' : 'gerar Insight' }}
+      <i :class="mostrarInsight ? 'fa-solid fa-xmark' : 'fa-solid fa-microchip'"></i>
+      
     
     </button>
     </div>
@@ -72,12 +73,12 @@ export default {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: black;
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin: 1.5rem auto;
+  padding: 1rem;
+  border-radius: 25px;
+  margin: 1rem;
   max-width: 700px;
   font-family: "Arial", sans-serif;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
@@ -96,15 +97,14 @@ h2 {
   color: white;
   border: none;
   padding: 0.7rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 25px;
   font-size: 1rem;
-  cursor: pointer;
   font-weight: 500;
   transition: 0.2s ease-in-out;
 }
 
 .botao-ia:hover {
-  background-color: #5b4fd8;
+  background-color: #5a189a;
   transform: scale(1.02);
 }
 
