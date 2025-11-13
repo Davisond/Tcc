@@ -118,8 +118,6 @@ export default {
     },
 };
 </script>
-
-
 <style scoped>
 .refeicaoLista{
     background: linear-gradient(to right, rgba(59, 56, 160, 0.3), rgba(175, 139, 210, 0.3));
@@ -167,8 +165,8 @@ export default {
     font-weight: bold;
 }
 
-
-.cardFeedback{
+/* card - colocar efeito */
+.cardFeedback{ 
     margin-top: 10px;
     background: #fff3e0;
     padding: 0.75rem;
@@ -176,6 +174,7 @@ export default {
     width: 100%;
     align-items: center;
 }
+/* opções com efeito */
 .opcoesFeedback button {
     margin: 2px;    
     border: none;

@@ -2,7 +2,7 @@
   
   <div class="alimentosList">
     <h2>Alimentos</h2>
-    <button @click="$emit('criarPersonalizado')" class="btnPersonalizado">+</button>
+    <!-- <button @click="$emit('criarPersonalizado')" class="btnPersonalizado">+</button> -->
 
     <div class ="alimentoCard" v-for="alimento in alimentos" :key="alimento.id" @click ="adicionarAlimento(alimento)">
         <span class="alimentoNome">{{ alimento.nome }}</span>
@@ -86,19 +86,34 @@ export default {
 
 }
 .alimentosList {
+    top: 200px;
     padding: 0 1rem;
     margin-bottom: 2rem;
+    background: linear-gradient(to right, rgba(59, 56, 160, 0.3), rgba(175, 139, 210, 0.3));
+    backdrop-filter: blur(50px);
+    width: 450px;
+    height: auto;
 }
 .alimentosList h2 {
   text-align: center;
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #4a148c;
+  color: #2c3e50;
 }
+
 .alimentoCard {
   display: flex;
   flex-direction: column;
-  background-color: #e0c7fa;
+  background: #5a189a;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.alimentoCard:hover {
+  display: flex;
+  flex-direction: column;
+  background: #9733EE;
   padding: 0.75rem 1rem;
   border-radius: 10px;
   margin-bottom: 12px;
@@ -107,14 +122,14 @@ export default {
 .alimentoNome {
   font-family: 'Arial', sans-serif;
   font-weight: bold;
-  color: #2c3e50; 
+  color: #fff; 
   font-size: 1.05rem;
   margin-bottom: 4px;
 }
 
 .alimentoInfo{
   font-family: 'Arial', sans-serif;
-  color: #444;
+  color: #fff;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
