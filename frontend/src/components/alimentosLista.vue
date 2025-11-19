@@ -2,7 +2,10 @@
   
   <div class="alimentosList">
     <h2>Alimentos</h2>
-    <!-- <button @click="$emit('criarPersonalizado')" class="btnPersonalizado">+</button> -->
+    
+    <div class="mb-3">
+    <button @click="$emit('criarPersonalizado')" class="btnPersonalizado">+</button> 
+    </div>
 
     <div class ="alimentoCard" v-for="alimento in alimentos" :key="alimento.id" @click ="adicionarAlimento(alimento)">
         <span class="alimentoNome">{{ alimento.nome }}</span>
@@ -32,6 +35,7 @@ export default {
         required: true
       }
     },
+
     emits: ['adicionado', 'criarPersonalizado'],
     setup (props, { emit }) {
         const alimentos = ref({});
@@ -40,7 +44,6 @@ export default {
             console.log(res.data)
             alimentos.value = res.data[0];
         });
-
         const adicionarAlimento = async (alimento) => {
           const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
             console.log("idRefeicao: " + props.idRefeicao + " idAlimento: " + alimento.id + " idUsuario: " + usuarioLogado.id)
@@ -71,7 +74,6 @@ export default {
     }
 }
 </script>
-
 <style scoped>
 .btnPersonalizado{
   background: #4caf50;
@@ -93,6 +95,9 @@ export default {
     backdrop-filter: blur(50px);
     width: 450px;
     height: auto;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x:hidden;
 }
 .alimentosList h2 {
   text-align: center;

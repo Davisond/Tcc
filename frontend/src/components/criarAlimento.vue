@@ -45,10 +45,10 @@
                             gordura: this.gordura,
                             caloria: this.caloria, 
                             porcao: this.porcao,
-                            idUsuario: usuarioLogado.id,
+                            quantidade: 1,
                         }
 
-                        await axios.post('http://localhost:3333/alimentosPersonalizados', novoAlimento);
+                        await axios.post('http://localhost:3333/alimentos', novoAlimento);
                         alert("Alimento Cadastrado!");
                         this.resetarFormulario();
                         this.$emit("alimentoCriado");
@@ -76,7 +76,7 @@
             max-width: 300px;
             margin: 2rem auto;
             padding: 2rem;
-            background-color: #f3e8fd; 
+            background-color: #fff; 
             border-radius: 12px;
             box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
             font-family: 'Arial', sans-serif;

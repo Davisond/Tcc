@@ -8,8 +8,8 @@ async function gerarAnaliseIa(dados) {
     console.log('[iaService] dados (raw):', JSON.stringify(dados, null, 2));
 
     if (!dados || !Array.isArray(dados)) {
-        console.error('[iaService] ERRO: "dados" não é array.');
-        return { erro: 'Erro interno: Formato de dados inválido.' };
+        console.error('[iaService] dados não é array.');
+        return { erro: 'Erro: Formato de dados inválido.' };
     }
 
     if (dados.length === 0) {
@@ -22,7 +22,7 @@ async function gerarAnaliseIa(dados) {
         console.error('[iaService] ERRO: item com shape inválido:', JSON.stringify(problema));
         return { erro: 'Erro interno: Formato dos itens inválido (falta nome ou qtd).' };
     }
-
+    
     try {
         const listaAlimentos = dados.map(a => `
             Nome: ${a.nome}
@@ -82,8 +82,21 @@ async function gerarAnaliseIa(dados) {
             body: JSON.stringify(body)
         });
 
+
+        if (!response.ok) {
+            const errorBody = await response.text();
+            console.error(`[iaService] ERRO HTTP ${response.status}:`, errorBody);
+            // Retorna um erro detalhado no frontend
+            return {
+                erro: `Erro na API da DeepSeek: Status ${response.status}. ..`,
+            };
+        }
         const data = await response.json();
+                console.log('[iaService] Resposta bruta da API:', JSON.stringify(data, null, 2));
+
         const iaResponseString = data?.choices?.[0]?.message?.content;
+
+
 
         if (iaResponseString) {
             try {

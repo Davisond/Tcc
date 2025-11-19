@@ -32,7 +32,6 @@ const getResumoMes = async (idUsuario) => {
         [refeicao.id]
         );
     
-
         // Feedbacks da refeição
     const [feedbacks] = await connection.execute(
     `SELECT descricao, sensacao 
