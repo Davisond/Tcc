@@ -37,7 +37,7 @@ export default {
         required: true
       }
     },
-    emits: ['adicionado', 'criarPersonalizado'],
+    emits: ['adicionado', 'criarPersonalizado','fechar'],
     setup (props, { emit }) {
         const alimentos = ref({});
         onMounted(async () => {
@@ -108,7 +108,22 @@ export default {
   margin-bottom: 1rem;
   color: #2c3e50;
 }
-
+.fechar-topo {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #5a189a;
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .alimentoCard {
   height: 40px;
   width: 88%;

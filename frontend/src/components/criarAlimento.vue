@@ -69,6 +69,18 @@
         }
     </script>
     <style scoped>
+
+.modal-overlay {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    z-index: 9999; 
+}
 .fechar-topo {
     position: absolute;
     top: 8px;
@@ -86,6 +98,7 @@
     align-items: center;
 }
 .card {
+    align-items: center;
     width: 260px; 
     padding: 1.3rem;
     background-color: #fff;

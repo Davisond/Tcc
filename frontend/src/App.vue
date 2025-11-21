@@ -4,7 +4,7 @@
     <navbar @toggleAlimentos="toggleAlimentos" />  
 
     <criar-alimento v-if="showInputCreate" @fechar="fecharCriar" @alimentoCriado="atualizarLista"/>
-    <alimentos-lista @criarPersonalizado="abrirCriarAlimento" class="overlay" v-if="showAlimentosList" :idRefeicao="idRefeicao" :idUsuario="idUsuario" @adicionado="onAdicionado" /> 
+    <alimentos-lista @criarPersonalizado="abrirCriarAlimento" @fechar="fecharListaAlimentos" class="overlay" v-if="showAlimentosList" :idRefeicao="idRefeicao" :idUsuario="idUsuario" @adicionado="onAdicionado" /> 
   <router-view :key="viewKey" />
   </div> 
 </template>
@@ -42,6 +42,10 @@
         }
     },
     methods: {
+
+      fecharListaAlimentos() {
+        this.showAlimentosList = false;
+      },
 
       abrirCriarAlimento() {
         this.showInputCreate = true;
