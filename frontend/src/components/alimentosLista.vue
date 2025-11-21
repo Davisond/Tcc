@@ -3,6 +3,8 @@
   <div class="alimentosList">
     <h2>Alimentos</h2>
     
+    <button class="fechar-topo" @click="$emit('fechar')">x</button>
+
     <div class="mb-3">
     <button @click="$emit('criarPersonalizado')" class="btnPersonalizado">+</button> 
     </div>
@@ -35,7 +37,6 @@ export default {
         required: true
       }
     },
-
     emits: ['adicionado', 'criarPersonalizado'],
     setup (props, { emit }) {
         const alimentos = ref({});
@@ -47,25 +48,18 @@ export default {
         const adicionarAlimento = async (alimento) => {
           const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
             console.log("idRefeicao: " + props.idRefeicao + " idAlimento: " + alimento.id + " idUsuario: " + usuarioLogado.id)
-
-          
             if (!usuarioLogado) {
               alert("Usuário não logado!");
               return;
             }
-                
           await axios.post(`http://localhost:3333/composicao`, {
             // idRefeicao: props.idRefeicao, 
             idAlimento: alimento.id,
             quantidade: 1,
             idUsuario: usuarioLogado.id
           });
-  
              emit('adicionado');
-             
         } 
-
-     
         return{
             alimentos,
             adicionarAlimento
@@ -76,7 +70,7 @@ export default {
 </script>
 <style scoped>
 .btnPersonalizado{
-  background: #4caf50;
+  background: #5a189a;
   color: white;
   border: none;
   border-radius: 50%;
@@ -85,17 +79,26 @@ export default {
   font-size: 20px;
   cursor: pointer;
   margin-bottom: 10px;
+}
 
+.btnPersonalizado:hover{
+  background-color: #9733EE;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-style: bold;
 }
 .alimentosList {
-    top: 200px;
+    border-radius: 12px;
+    top: 95px;
     padding: 0 1rem;
     margin-bottom: 2rem;
     background: linear-gradient(to right, rgba(59, 56, 160, 0.3), rgba(175, 139, 210, 0.3));
     backdrop-filter: blur(50px);
-    width: 450px;
-    height: auto;
-    max-height: 300px;
+    width: 260px;
+    max-height: 500px;
     overflow-y: auto;
     overflow-x:hidden;
 }
@@ -107,11 +110,16 @@ export default {
 }
 
 .alimentoCard {
+  height: 40px;
+  width: 88%;
+  padding: 0.6rem;
+  margin-bottom: 0.7rem;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
   background: #5a189a;
   padding: 0.75rem 1rem;
-  border-radius: 10px;
+  border-radius: 12px;
   margin-bottom: 12px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
@@ -128,7 +136,7 @@ export default {
   font-family: 'Arial', sans-serif;
   font-weight: bold;
   color: #fff; 
-  font-size: 1.05rem;
+  font-size: 1.00rem;
   margin-bottom: 4px;
 }
 
@@ -138,5 +146,6 @@ export default {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  font-size: 0.90rem;
 }
 </style>
