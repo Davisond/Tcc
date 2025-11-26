@@ -10,17 +10,23 @@
                 <button class="adicionarFeedback" @click="abrirCardFeedback(refeicao.id)"> <i class="fa-solid fa-lightbulb"></i> </button>
         
 
-        <div v-if="refeicaoSelecionada === refeicao.id" class="cardFeedback">
-            <p> o quão disposto está após a refeição? </p>
-            <div class="opcoesFeedback">
-                <button v-for="num in 5" :key="num" @click="enviarFeedback(num, refeicao.id)">
-                    {{ num }}
-                </button>
+        <div v-if="refeicaoSelecionada === refeicao.id" class="overlay2">
+            <div class="cardFeedback">
+
+                    <button class="btn-close" @click="fechar">✕</button>
+
+                    <p class="titulo-feedback"> Como você está se sentindo? (5 - muito disposto) </p>
+
+                <div class="estrelas">
+                    <button v-for="num in 5" :key="num" @click="enviarFeedback(num, refeicao.id)" class="estrela">
+                        <i class="fa-solid fa-star"></i>
+                    </button>
+                </div>
             </div>
         </div>
+
         </li>
             </ul>
-
     </div>
 </template>
 <script>
@@ -36,6 +42,10 @@ export default {
         const refeicoes = ref([]);
         const refeicaoSelecionada = ref(null);
 
+
+        const fechar = () => {
+            refeicaoSelecionada.value = null;
+        };
 
         const abrirCardFeedback = (idRefeicao) => {
             refeicaoSelecionada.value = refeicaoSelecionada.value === idRefeicao ? null: idRefeicao;
@@ -113,7 +123,8 @@ export default {
             refeicoes,
             refeicaoSelecionada, 
             abrirCardFeedback, 
-            enviarFeedback
+            enviarFeedback,
+            fechar
         }
     },
 };
@@ -164,17 +175,68 @@ export default {
     height: 30px;
     font-weight: bold;
 }
-
-/* card - colocar efeito */
-.cardFeedback{ 
-    margin-top: 10px;
-    background: #fff3e0;
-    padding: 0.75rem;
-    border-radius: 8px;
-    width: 100%;
-    align-items: center;
+.titulo-feedback {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 12px;
 }
-/* opções com efeito */
+.btn-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 1.3rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #444;
+}
+.estrelas {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+.estrela {
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ddd;
+    transition: 0.25s;
+}
+.estrela:hover {
+    color: #ffb300;
+    transform: scale(1.25);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.cardFeedback{ 
+    background: #ffffff;
+    padding: 22px;
+    border-radius: 18px;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    animation: fadeIn 0.25s ease-out;
+    position: relative; 
+    text-align: center;
+}
+.overlay2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55); 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    backdrop-filter: blur(2px);
+}
 .opcoesFeedback button {
     margin: 2px;    
     border: none;
@@ -187,8 +249,6 @@ export default {
 }
 .opcoesFeedback button:hover {
     background: #fb8c00;
-
-
 }
 
 
