@@ -1,7 +1,7 @@
 // iaService.js
 
-const apiKey = 'sk-db85ce5272824deab5a9bacde5d956e4';
-const url = 'https://api.deepseek.com/chat/completions';
+const apiKey = '#';
+const url = '#';
 
 async function gerarAnaliseIa(dados) {
     console.log('[iaService] entrar gerarAnaliseIa. tipo:', typeof dados);
