@@ -12,11 +12,59 @@ Focado em auxiliar os usuários no alcance de metas nutricionais específicas, c
 
 - Embasamento Científico: Cálculos estruturados com base em literaturas e diretrizes nutricionais reconhecidas.
 
+## Tecnologias Utilizadas
+
+Para a implementação da plataforma proposta, foram escolhidas tecnologias amplamente
+consolidadas no mercado e com boa curva de aprendizado, visando facilitar o desenvolvimento,
+os testes e a futura manutenção da aplicação. A arquitetura geral adotada é baseada no modelo
+cliente-servidor, com uma clara separação entre front-end, back-end e banco de dados
+
+# Back-end 
+
+Desenvolvido com Node.js1 e Express2. A escolha dessa stack se deu por sua
+leveza, grande ecossistema de bibliotecas e facilidade de construção de APIs RESTful. O Express permite criar rotas, middlewares e controladores de forma organizada, possibilitando uma
+manutenção mais simples do código.<br>
+
+Os modelos e controladores da API já estão funcionando para as entidades existentes, com
+rotas REST implementadas e testadas com sucesso através da ferramenta Insomnia. As seguin-
+tes operações estão disponíveis, para cada entidade presente no projeto:
+
+- GET / lista todos elementos da entidade;
+- GET / :id busca elemento da entidade através do id;
+- POST / – cria um novo elemento com os dados informados.
+- PUT /:id – atualiza os dados do elemento;
+- DELETE /:id – exclui um determinado elemento através do Id.
+
+# Banco de Dados
+
+Utiliza MySQL3 para armazenamento relacional. A modelagem do banco
+segue um esquema estruturado com tabelas relacionadas, garantindo integridade referencial e
+eficiência em consultas. O XAMPP4 está sendo utilizado como ambiente local para facilitar o
+gerenciamento do servidor MySQL durante o desenvolvimento.<br>
+A estrutura do banco de dados relacional foi implementada conforme o modelo lógico previamente elaborado, com tabelas normalizadas que representam as entidades essenciais do sistema: usuários, alimentos, refeições, feedbacks e registros diários.
+
+# Modelo Er Inicial
+<div align="center">
+  <img src="https://github.com/Davisond/Tcc/blob/main/erInicial.png?raw=true" width="500px" />
+</div>
+
+O relacionamento entre as entidades permite associar alimentos a refeições por meio da tabela intermediária ComposicaoRefeicao, que registra a quantidade de cada alimento em uma
+refeição. As refeições estão vinculadas a dias específicos, e todos os registros são associados
+a um usuário, permitindo um controle individualizado. Além disso, a resposta fornecida pelo
+usuário é relacionada a uma refeição específica, possibilitando a coleta de dados sobre a experiência alimentar. Essas informações são fundamentais para o funcionamento do sistema de
+recomendação inteligente, que utilizará esses dados para sugerir melhorias nas escolhas alimentares do usuário
+
+# FrontEnd
+
+Desenvolvido com Vue.js5, um framework JavaScript progressivo que oferece
+uma abordagem reativa e modular para construção de interfaces dinâmicas. Vue foi escolhido
+pela sua curva de aprendizado amigável, forte comunidade e capacidade de criar componentes
+reutilizáveis.<br>
+
 ## Fluxo de uso  
 
 A aplicação proposta visa gerenciar e processar informações nutricionais de forma personalizada para cada usuário, acompanhando suas metas diárias de macronutrientes com base em
 dados pessoais e no histórico de consumo.
-
 
 ## Cadastro
 <div align="center">
@@ -39,12 +87,14 @@ conforme figura, caso não haja cadastro, há a opção de efetuar o cadastro lo
   <img src="https://github.com/Davisond/Tcc/blob/main/3menu.png?raw=true" width="300px" />
 </div>
 
-**Cálculo automático de metas nutricionais:** Após o cadastro, o sistema utiliza das informações pessoais para calcular as metas diárias de macronutrientes (carboidratos, proteínas e
-gorduras). Esse cálculo baseia-se em fórmulas nutricionais validadas por estudos acadêmicos, 
-considerando fatores como gasto energético basal, nível de atividade física
-e objetivo definido. As metas geradas são salvas e apresentadas ao usuário como seu objetivo
-diário, na tela menu presente na figura estes objetivos diários podem ser visualizados no
-component com título "Macronutrientes" na parte superior do menu.
+Após o cadastro, o sistema utiliza as informações pessoais para calcular as metas diárias de
+macronutrientes (carboidratos, proteínas e gorduras) com base em fórmulas validadas por estudos 
+acadêmicos que consideram o gasto energético basal, o nível de atividade física e o objetivo
+definido, apresentando esses dados no componente Macronutrientes no topo do menu. Para interagir
+com esses dados, o botão + na navbar executa um evento emit que é ouvido pelo App.vue e exibe,
+através da diretiva v-if, os alimentos disponíveis no banco de dados, ao selecionar um item, 
+seus valores nutricionais são automaticamente somados aos totais acumulados na interface,
+permitindo comparar a ingestão diária com as metas estabelecidas.
 
 ## Lista de alimentos
 <div align="center">
